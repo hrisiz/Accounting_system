@@ -4,6 +4,8 @@ body{
 	margin:0px;
 }
 header{
+	border-bottom-right-radius:10%;
+	border-bottom-left-radius:10%;
 	position:fixed;
 	z-index:99999;
 	top:0px;

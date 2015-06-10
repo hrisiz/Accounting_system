@@ -9,7 +9,6 @@
 		if($_POST['money'] == 0){
 			$money = "(Select money_per_hour From Person Where id=:person)";
 		}
-		echo $money ;
 		foreach($_POST['person'] as $person_id => $value){
 			$query = "Insert Into Work(person_id , start_time , end_time , money_per_hour, work_date) 
 							values(:person,:start_time,:end_time,$money,:date)";

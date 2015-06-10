@@ -79,9 +79,13 @@ section > div#input > form div#persons ul>li{
 section > div#input > form div#persons ul > li:hover{
 	list-style-type: square;
 	color:blue;
-	
 }
 section > div#input > form div#persons ul>li.selected{
 	list-style-type: square;
 	color:gold;
+}
+section > div#input > form div#persons p{
+	color:black;
+	margin:0px;
+	padding:2px 50px;
 }
