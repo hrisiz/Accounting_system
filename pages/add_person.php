@@ -110,8 +110,6 @@
 <?php
 	}
 ?>
-<div id="edit_person_field_out">
-</div>
-<div id="edit_person_field_in">
+<div class="front_js_show_page" id="edit_person_field_in">
 
 </div>

@@ -1,15 +1,15 @@
  jQuery(document).ready(function($){
-	$(document).on('click','button#edit_person',function(){
+	$(document).on('click','button#show_person',function(){
 		$('div.back_js_show_page').show();
-		$('div#edit_person_field_in').show();
+		$('div#check_person').show();
 		$.ajax({
 			type:'post',
 			data:{
 				"send_id":$(this).attr("data-id")
 			},
-			url: "ajax.php?page=AddPersonEdit", 
+			url: "ajax.php?page=CheckPerson", 
 			success: function(result){
-				$("div#edit_person_field_in").html(result);
+				$("div#check_person").html(result);
 			}
 		});
 	});

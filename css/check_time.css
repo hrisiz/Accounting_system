@@ -32,3 +32,46 @@ section > div#show_all >table tr>td{
 section > div#show_all >table tr>td>input{
 	height:auto;
 }
+
+section > div#check_person{
+	padding-left:50px;
+	padding-right:50px;
+	padding-top:5%;
+}
+
+section > div#check_person > ul#person_info{
+	border-collapse:collapse;
+	width:auto;
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+
+section > div#check_person > ul#person_info li{
+	text-align:left;
+	width:100%;
+	color:white;
+	border-top-right-radius:100px;
+	border-bottom-right-radius:100px;
+	padding:5px 10px;
+}
+section > div#check_person > ul#person_info li:nth-child(odd){
+	background-color:rgba(0,0,0,0.4) ;
+	opacity:0.9;
+}
+
+section > div#check_person > ul#person_info li>p{
+	display:inline-block;
+	padding:0px;
+	margin:0px;
+	font-weight:bold;
+}
+section > div#check_person > ul#person_info li>p:nth-child(even){
+	color:gold;
+}
+section > div#check_person > table#work_time_info td{
+	text-align:center;
+}
+section > div#check_person > table#work_time_info th{
+	color:white;
+}

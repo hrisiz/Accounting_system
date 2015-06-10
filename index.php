@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="javascripts/jquery-ui-smoothness/jquery-ui.css">
 		<script src="javascripts/jquery-2.1.4.min.js"></script>
 		<script src="javascripts/jquery-ui-smoothness/jquery-ui.js"></script>
+		<script src="javascripts/main.js"></script>
 		<?php include "inc/js_inc.php";?>
 		<meta name="description" content="Blog">
 		<meta name="keywords" content="Blog">
@@ -24,6 +25,8 @@
 			</nav>
 		</header>
 		<section>
+			<div class="back_js_show_page">
+			</div>
 			<?php include "inc/switch.php";?>
 		</section>
 		<footer>

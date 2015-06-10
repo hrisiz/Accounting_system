@@ -16,7 +16,7 @@
 			<td><?=$row['first_name']?> <?=$row['family']?></td>
 			<td><?=$row['work_time']?></td>
 			<td><?=$row['money']?></td>
-			<td><button>Проверка</button></td>
+			<td><button data-id="<?=$row['id']?>" id="show_person">Проверка</button></td>
 			<td><input type="checkbox"/></td>
 		</tr>
 		<?php
@@ -69,4 +69,7 @@
 			echo "</tr>";
 		?>
 	</table>
+</div>
+<div class="front_js_show_page" id="check_person">
+	
 </div>
