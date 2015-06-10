@@ -1,0 +1,69 @@
+section > div#input{
+	width:100%;
+	text-align:center;
+}
+
+ form input:focus{
+	border: 2px solid gold;
+	outline:none;
+}
+
+section > div#show{
+	width:100%;
+	text-align:center;
+}
+
+section > div#show > table{
+	width:100%;
+}
+
+section > div#show > table > thead > tr > th{
+	color:gold;
+	background-color:grey;
+	font-weight:bold;
+	font-size:1.2em;
+}
+
+section > div#show > table > tbody > tr > td{
+	color:black;
+	text-align:center;
+	background-color:lightgrey;
+}
+section > div#show > table > tbody > tr:nth-child(2n) > td{
+	background-color:grey;
+}
+
+section > div#show > table form{
+	margin:0px;
+	text-align:center;
+}
+
+section > div#edit_person_field_out{
+	display:none;
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0px;
+	left:0px;
+	padding-top:50px;
+	background-color:black;
+	opacity:0.5;
+	z-index:1;
+}
+section > div#edit_person_field_in{
+	display:none;
+	position:fixed;
+	top:20%;
+	left:20%;
+	height:60%;
+	width:60%;
+	background-color:grey;
+	z-index:2;
+	margin-left:auto;
+	margin-right:auto;
+	border-top-right-radius:20%;
+	border-top-left-radius:20%;
+	padding-top:80px;
+	padding-left:10px;
+	padding-right:10px;
+}

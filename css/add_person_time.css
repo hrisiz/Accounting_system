@@ -1,0 +1,87 @@
+section > div#input{
+	width:100%;
+	text-align:center;
+	position:relative;
+}
+section > div#input > form  div#time > div#end_time{
+	width:50%;
+	margin:0px;
+	float:right;
+	display:inline-block;
+	border-radius:0px;
+}
+section > div#input > form  div#time > div#start_time{
+	width:50%;
+	margin:0px;
+	float:left;
+	display:inline-block;
+	border-radius:0px;
+}
+div.clear{
+	clear:both;
+}
+section > div#input > form  div#time > div#start_time > label{
+	float:left;
+}
+section > div#input > form  div#time > div#end_time > label{
+	float:right;
+}
+section > div#input > form  div#time > div#start_time > select{
+	float:left;
+}
+section > div#input > form  div#time > div#end_time > select{
+	float:right;
+}
+section > div#input > form  div#time > div#start_time > select:last-child{
+	border-top-right-radius:100px;
+	border-bottom-right-radius:100px;
+}
+section > div#input > form  div#time > div#end_time >  select:last-child{
+	border-top-left-radius:100px;
+	border-bottom-left-radius:100px;
+}
+section > div#input > form  div#time select{
+	width:40%;
+	display:inline;
+	border-radius:0px;
+}
+section > div#input > form input:focus,section > div#input > form select:focus{
+	border: 2px solid gold;
+	outline:none;
+}
+
+section > div#input > form div#persons{
+	width:99%;
+	margin:0px;
+	background-color:white;
+	position:absolute;
+	display:none;
+	overflow:hidden;
+	border-bottom-left-radius:10px;
+	border-bottom-right-radius:10px;
+	padding:0px;
+	margin-top:-10px;
+}
+section > div#input > form div#persons input[type="checkbox"]{
+	display:none;
+}
+section > div#input > form div#persons ul{
+	list-style-type: circle;
+	width:100%;
+	margin:0px;
+}
+section > div#input > form div#persons ul>li{
+	cursor:pointer;
+	font-size:1.2em;
+	margin:0px;
+	color:black;
+}
+section > div#input > form div#persons ul > li:hover{
+	list-style-type: square;
+	color:blue;
+	
+}
+section > div#input > form div#persons ul>li.selected{
+	list-style-type: square;
+	color:gold;
+}

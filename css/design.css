@@ -1,0 +1,92 @@
+body{
+	background-color:black;
+	padding:0px;
+	margin:0px;
+}
+header{
+	position:fixed;
+	z-index:99999;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:3em;
+	background: -webkit-linear-gradient(bottom,blue, black); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom,blue, black); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom,blue, black); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(bottom,blue, black); /* Standard syntax */
+	margin:0px;
+	padding:0px;
+	/* -o-transition: height 0.5s; /* Opera */
+	 /* -moz-transition: height 0.5s; /* Firefox */
+	/*  -webkit-transition: height 0.5s; /* Safari */
+   /*  transition:height 0.5s; */
+}
+
+header > nav{
+	text-align:center;
+	width:100%;
+	position:absolute;
+	bottom:2px;
+}
+header > nav > a{
+	text-transform: uppercase;
+	font-weight:bold;
+	color:gold;
+	text-decoration:none;
+	font-size:1.2em;
+	margin-left:5%;
+	margin-right:5%;
+	cursor:pointer;
+}
+header > nav > a:hover{
+	color:white;
+}
+
+section{
+	padding-top:50px;
+	color:white;
+	text-align:center;
+	margin-top:3.5em;
+	margin-left:auto;
+	margin-right:auto;
+	width:80%;
+	background: -webkit-linear-gradient(bottom,blue,blue, black); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom,blue,blue, black); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom,blue,blue, black); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(bottom,blue,blue, black); /* Standard syntax */
+}
+footer{
+	margin-top:3.5em;
+}
+footer > p{
+	color:white;
+	text-align:center;
+}
+
+ table{
+	width:100%;
+}
+
+form{
+	text-align:left;
+}
+
+label{
+	margin-left:1em;
+}
+
+input[type="submit"]{
+	border-radius:100px;
+}
+input, select{
+	width:100%;
+	display:block;
+	padding:0px;
+	margin:0px;
+	height:30px;
+	border-top-right-radius:100px;
+	border-bottom-right-radius:100px;
+	padding-left:1em;
+	font-size:1.2em;
+	margin-bottom:10px;
+}
