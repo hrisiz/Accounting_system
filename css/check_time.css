@@ -33,13 +33,13 @@ section > div#show_all >table tr>td>input{
 	height:auto;
 }
 
-section > div#check_person{
+section > div#person_info{
 	padding-left:50px;
 	padding-right:50px;
 	padding-top:5%;
 }
 
-section > div#check_person > ul#person_info{
+section > div#person_info > ul#person_info{
 	border-collapse:collapse;
 	width:auto;
 	list-style:none;
@@ -47,7 +47,7 @@ section > div#check_person > ul#person_info{
 	padding:0px;
 }
 
-section > div#check_person > ul#person_info li{
+section > div#person_info > ul#person_info li{
 	text-align:left;
 	width:100%;
 	color:white;
@@ -55,23 +55,64 @@ section > div#check_person > ul#person_info li{
 	border-bottom-right-radius:100px;
 	padding:5px 10px;
 }
-section > div#check_person > ul#person_info li:nth-child(odd){
+section > div#person_info > ul#person_info li:nth-child(odd){
 	background-color:rgba(0,0,0,0.4) ;
 	opacity:0.9;
 }
 
-section > div#check_person > ul#person_info li>p{
+section > div#person_info > ul#person_info li>p{
 	display:inline-block;
 	padding:0px;
 	margin:0px;
 	font-weight:bold;
 }
-section > div#check_person > ul#person_info li>p:nth-child(even){
+section > div#person_info > ul#person_info li>p:nth-child(even){
 	color:gold;
 }
-section > div#check_person > table#work_time_info td{
+section > div#person_info > table#work_time_info td{
 	text-align:center;
 }
-section > div#check_person > table#work_time_info th{
+section > div#person_info > table#work_time_info th{
 	color:white;
+}
+
+
+div#time > div#end_time{
+	width:50%;
+	margin:0px;
+	float:right;
+	display:inline-block;
+	border-radius:0px;
+}
+div#time > div#start_time{
+	width:50%;
+	margin:0px;
+	float:left;
+	display:inline-block;
+	border-radius:0px;
+}
+div#time > div#start_time > label{
+	float:left;
+}
+div#time > div#end_time > label{
+	float:right;
+}
+div#time > div#start_time > select{
+	float:left;
+}
+div#time > div#end_time > select{
+	float:right;
+}
+div#time > div#start_time > select:last-child{
+	border-top-right-radius:100px;
+	border-bottom-right-radius:100px;
+}
+div#time > div#end_time >  select:last-child{
+	border-top-left-radius:100px;
+	border-bottom-left-radius:100px;
+}
+div#time select{
+	width:40%;
+	display:inline;
+	border-radius:0px;
 }

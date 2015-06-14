@@ -8,6 +8,7 @@
 			}
 			$db_conn->beginTransaction();
 			$prep = $db_conn->prepare("Insert Into Person(first_name,second_name,family,email,address,phone,money_per_hour) values( :first_name , :second_name , :family , :email , :address , :phone,:money_per_hour)");
+			
 			$prep->execute($insert_array);
 			$db_conn->commit();
 			echo "<p>Успешно беше добавен и записан ".$insert_array['first_name'].".</p>";

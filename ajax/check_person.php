@@ -34,15 +34,15 @@
 	</li>
 	<li>
 		<p>Пари на час:</p>
-		<p><?=$person_info['money_per_hour']?>лева/час</p>
+		<p><?=$person_info['money_per_hour']?> лева/час</p>
 	</li>
 	<li>
 		<p>Време на работа за седмицата:</p>
-		<p><?=$person_info['work_time']?>ч.</p>
+		<p><?=$person_info['work_time']?> ч.</p>
 	</li>
 	<li>
 		<p>Пари за седмицата:</p>
-		<p><?=$person_info['money']?>лв.</p>
+		<p><?=$person_info['money']?> лв.</p>
 	</li>
 </ul>
 <?php
@@ -57,11 +57,11 @@
 <table id="work_time_info">
 	<tr>
 		<th>Дата</th>
-		<th>Начало(час)</th>
-		<th>Край(час)</th>
-		<th>Пари на час(лева/час)</th>
-		<th>Време за деня(час)</th>
-		<th>Пари за деня(лева)</th>
+		<th>Начало</th>
+		<th>Край</th>
+		<th>Пари на час</th>
+		<th>Време за деня</th>
+		<th>Пари за деня</th>
 		<th>Редактиране</th>
 	</tr>
 	<?php
@@ -74,7 +74,7 @@
 			<td><?=$day['money_per_hour']?></td>
 			<td><?=$day['work_time']?></td>
 			<td><?=$day['money']?></td>
-			<td><button class="edit_person_day">Редактиране</button></td>
+			<td><button class="edit_person_day" data-id="<?=$day['id']?>">Редактиране</button></td>
 		</tr>
 	<?php
 		}

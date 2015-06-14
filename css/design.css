@@ -77,7 +77,7 @@ label{
 	margin-left:1em;
 }
 
-input[type="submit"]{
+input[type="submit"] , input[type="button"]{
 	border-radius:100px;
 }
 input, select{
@@ -123,4 +123,7 @@ div.front_js_show_page{
 	padding-top:80px;
 	padding-left:10px;
 	padding-right:10px;
+}
+div.clear{
+	clear:both;
 }

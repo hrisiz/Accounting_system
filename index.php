@@ -1,9 +1,11 @@
 <?php
 	include "inc.php";
+	 header('Content-type: text/html; charset=utf-8');
 ?>
+<!DOCTYPE html />
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8"/>
 		<?php include "inc/css_inc.php";?>
 		<link rel="stylesheet" type="text/css" href="css/design.css">  
 		<link rel="stylesheet" href="javascripts/jquery-ui-smoothness/jquery-ui.css">
@@ -21,7 +23,7 @@
 				<a href="?page=PersonCreate">Добавяне на човек</a> 
 				<a href="?page=AddPersonTime">Добавяне на време</a> 
 				<a href="?page=CheckTime">Проверка</a> 
-				<a href="/jquery/">jQuery</a>
+				<a href="?page=End">Завършване</a>
 			</nav>
 		</header>
 		<section>

@@ -1,5 +1,5 @@
 Drop Database if exists work;
-CREATE DATABASE if not exists work;
+CREATE DATABASE if not exists work Default charset=utf8;
 use work;
 Create Table Person(
 	id int primary key auto_increment,
@@ -10,7 +10,7 @@ Create Table Person(
 	address varchar(100),
 	phone varchar(15),
 	money_per_hour float
-) ENGINE InnoDB;
+) ENGINE InnoDB Default charset=utf8;
 use work;
 
 Create Table Work(
@@ -23,4 +23,4 @@ Create Table Work(
 	day_work_time time,
 	day_money date,
 	foreign key Work(person_id) references Person(id)
-) ENGINE InnoDB;
+) ENGINE InnoDB Default charset=utf8;

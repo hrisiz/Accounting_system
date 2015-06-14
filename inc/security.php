@@ -43,16 +43,3 @@
 	{
 		walk($_POST);
 	}
-	
-	if(isset($_SESSION))
-	{
-		walk($_SESSION);
-	}
-	/*
-	if(isset($_REQUEST))
-	{
-		foreach($_REQUEST as $key => $value)
-		{
-			$_REQUEST[$key] = filter($value);
-		}
-	}*/

@@ -17,9 +17,6 @@ section > div#input > form  div#time > div#start_time{
 	display:inline-block;
 	border-radius:0px;
 }
-div.clear{
-	clear:both;
-}
 section > div#input > form  div#time > div#start_time > label{
 	float:left;
 }
