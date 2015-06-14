@@ -1,5 +1,5 @@
  jQuery(document).ready(function($){
-	create_datepicker('datepicker');
+	create_datepicker('#datepicker');
 	$(document).on('click','input#persons_input',function(){
 		$('div#persons').toggle();
 	});
@@ -13,7 +13,7 @@
 			li_elem.next().prop('checked', true);
 		}
 	});
-	$(document).on('change','div#input > form input#datepicker',function(){
+	$(document).on('change','input#datepicker',function(){
 		$.ajax({
 			type:'post',
 			data:{
