@@ -16,8 +16,7 @@
 							:end_time,
 							:free_time,
 							$money,
-							:date
-							";
+							:date)";
 			$prep = $db_conn->prepare($query);
 			$input = Array(
 				'person'=>$person_id,
@@ -27,7 +26,7 @@
 				'money' => $_POST['money'],
 				'date' => $_POST['date'],
 			);
-			$prep->execute($input);
+			$prep->execute($input) or die(print_r($db_conn->errorInfo(), true));;
 		}
 		$db_conn->commit();
 		echo "<p>Успешно беше добавено и записано време.</p>";
