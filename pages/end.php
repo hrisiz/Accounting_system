@@ -10,8 +10,8 @@
 		}
 		$select_persons_query = "Select 
 		Person.*,
-		cast(SUM((Work.end_time - Work.start_time)) as time) as work_time,
-		SUM(((floor((Work.end_time - Work.start_time)/100/100)*60) + floor((Work.end_time - Work.start_time)/100)%100) * (Work.money_per_hour/60)) as money 
+		cast(SUM(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)) as time) as work_time,
+		FORMAT(SUM(((floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100/100)*60) + floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100)%100) * (Work.money_per_hour/60)),2) as money 
 		From Person Left Join Work On Work.person_id = Person.id AND Work.work_date >= :first AND Work.work_date <= :last Group by Work.person_id";
 		$prep = $db_conn->prepare($select_persons_query);
 		$prep->execute($days);
@@ -22,8 +22,8 @@
 			start_time,
 			end_time,
 			money_per_hour,
-			work_date,cast((Work.end_time - Work.start_time) as time) as work_time,
-		   ((floor((Work.end_time - Work.start_time)/100/100)*60) + floor((Work.end_time - Work.start_time)/100)%100) * (Work.money_per_hour/60) as money 
+			work_date,cast(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time) as time) as work_time,
+			FORMAT(((floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100/100)*60) + floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100)%100) * (Work.money_per_hour/60),2) as money 
 			From Work Where Work.person_id = :person_id AND Work.work_date >= :first AND Work.work_date <= :last order by work_date";
 			$prep1 = $db_conn->prepare($select_query);
 			$prep1->execute(array_merge($days,Array('person_id'=>$person['id'])));

@@ -32,8 +32,8 @@
 <div id="show_all">
 	<?php
 		$prep = $db_conn->prepare("Select  Person.*,
-		cast(SUM((Work.end_time - Work.start_time)) as time) as work_time,
-		SUM(((floor((Work.end_time - Work.start_time)/100/100)*60) + floor((Work.end_time - Work.start_time)/100)%100) * (Work.money_per_hour/60)) as money 
+		cast(SUM(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)) as time) as work_time,
+		FORMAT(SUM(((floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100/100)*60) + floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100)%100) * (Work.money_per_hour/60)),2) as money 
 		From Person Left Join Work On Work.person_id = Person.id 
 		Group by Person.id");
 		$prep->execute(); 
