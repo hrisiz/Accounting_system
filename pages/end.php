@@ -35,8 +35,8 @@
 			}
 			file_put_contents("history/".iconv("UTF-8", "Windows-1251",$person['first_name'])."-".$days['first']."=-=".$days['last'].".log",$output); 
 		}
-		// $del = $db_conn->prepare("Delete from Work Where Work.work_date >= :first AND Work.work_date <= :last");
-		// $del->execute($days);
+		$del = $db_conn->prepare("Delete from Work Where Work.work_date >= :first AND Work.work_date <= :last");
+		$del->execute($days);
 	}
 ?>
 <div>
