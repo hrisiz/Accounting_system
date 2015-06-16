@@ -10,7 +10,7 @@
 		}
 		$select_persons_query = "Select 
 		Person.*,
-		cast(SUM(Work.work_time) as time)	 as work_time,
+		SEC_TO_TIME(SUM(TIME_TO_SEC(Work.work_time))) as work_time,
 		FORMAT(SUM(Work.work_money),2) as money 
 		From Person Left Join Work On Work.person_id = Person.id AND Work.work_date >= :first AND Work.work_date <= :last Group by Work.person_id";
 		$prep = $db_conn->prepare($select_persons_query);

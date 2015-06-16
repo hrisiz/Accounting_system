@@ -47,8 +47,8 @@
 		}
 		echo "<tr><td></td>";
 		foreach($all_for_person as $person_week_info){
-			$hours = floor($person_week_info['time']/60/60);
-			echo "<td>Общо: ".($hours).":".($person_week_info['time']/60 - $hours*60)." - ".$person_week_info['money']."</td>";
+			$hours = floor($person_week_info['time']/60);
+			echo "<td>Общо: ".($hours).":".($person_week_info['time']%60)." - ".$person_week_info['money']."</td>";
 		}
 		echo "</tr>";
 	?>
