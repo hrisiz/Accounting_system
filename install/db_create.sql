@@ -21,6 +21,8 @@ Create Table Work(
 	free_time time,
 	money_per_hour float,
 	work_date date,
+	work_time time,
+	work_money float,
 	foreign key Work(person_id) references Person(id)
 ) ENGINE InnoDB Default charset=utf8;
 
