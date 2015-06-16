@@ -22,6 +22,9 @@
 			start_time,
 			end_time,
 			money_per_hour
+			work_date,
+			work_time,
+			work_money
 			From Work Where Work.person_id = :person_id AND Work.work_date >= :first AND Work.work_date <= :last order by work_date";
 			$prep1 = $db_conn->prepare($select_query);
 			$prep1->execute(array_merge($days,Array('person_id'=>$person['id'])));
@@ -32,8 +35,8 @@
 			}
 			file_put_contents("history/".iconv("UTF-8", "Windows-1251",$person['first_name'])."-".$days['first']."=-=".$days['last'].".log",$output); 
 		}
-		$del = $db_conn->prepare("Delete from Work Where Work.work_date >= :first AND Work.work_date <= :last");
-		$del->execute($days);
+		// $del = $db_conn->prepare("Delete from Work Where Work.work_date >= :first AND Work.work_date <= :last");
+		// $del->execute($days);
 	}
 ?>
 <div>

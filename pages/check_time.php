@@ -33,7 +33,7 @@
 <div id="show_all">
 	<?php
 		$prep = $db_conn->prepare("Select  Person.*,
-		cast(SUM(Work.work_time) as time)	 as work_time,
+		cast(SUM(Work.work_time) as time) as work_time,
 		FORMAT(SUM(Work.work_money),2) as money 
 		From Person Left Join Work On Work.person_id = Person.id 
 		Group by Person.id");

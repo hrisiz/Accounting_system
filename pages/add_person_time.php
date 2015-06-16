@@ -36,7 +36,7 @@
 <div id="input">
 	<form method="POST">
 		<label for="datepicker">Дата:</label>
-		<input type="text" id="datepicker" name="date" value="<?=date("Y-m-d",time());?>"/>
+		<input type="text" id="datepicker" name="date" value="<?=(isset($_POST['date']) ? $_POST['date']:date("Y-m-d",time()))?>"/>
 		<div id="ajax">
 			<?php
 				include "ajax/add_person_time_form.php";
