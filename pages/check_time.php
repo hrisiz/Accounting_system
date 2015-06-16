@@ -13,9 +13,10 @@
 		}
 		$input['start_time'] = $_POST['start_time']['hour'].":".$_POST['start_time']['minute'];
 		$input['end_time'] = $_POST['end_time']['hour'].":".$_POST['end_time']['minute'];
+		$input['free_time'] = $_POST['free_time']['hour'].":".$_POST['free_time']['minute'];
 		$input['money_per_hour'] = $_POST['money_per_hour'];
 			
-		$prep = $db_conn->prepare("Update Work Set person_id = :person_id, work_date = :work_date, start_time = :start_time, end_time = :end_time, money_per_hour = :money_per_hour Where id=:id");
+		$prep = $db_conn->prepare("Update Work Set person_id = :person_id, work_date = :work_date, start_time = :start_time, end_time = :end_time, free_time = :free_time, money_per_hour = :money_per_hour Where id=:id");
 		$prep->execute($input);
 		echo "Успешно редактирахте.";
 		error:
@@ -32,8 +33,8 @@
 <div id="show_all">
 	<?php
 		$prep = $db_conn->prepare("Select  Person.*,
-		cast(SUM(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)) as time) as work_time,
-		FORMAT(SUM(((floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100/100)*60) + floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100)%100) * (Work.money_per_hour/60)),2) as money 
+		cast(SUM(Work.work_time) as time)	 as work_time,
+		FORMAT(SUM(Work.work_money),2) as money 
 		From Person Left Join Work On Work.person_id = Person.id 
 		Group by Person.id");
 		$prep->execute(); 

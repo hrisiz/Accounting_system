@@ -23,3 +23,15 @@ Create Table Work(
 	work_date date,
 	foreign key Work(person_id) references Person(id)
 ) ENGINE InnoDB Default charset=utf8;
+
+CREATE TRIGGER `EditTimeAndMoney` BEFORE UPDATE ON `work`
+ FOR EACH ROW BEGIN
+Set NEW.work_time = SUBTIME(SUBTIME(NEW.end_time, NEW.start_time), NEW.free_time);
+Set NEW.work_money = FORMAT(((HOUR(NEW.work_time)*60) + MINUTE(NEW.work_time)) * (NEW.money_per_hour/60),2);
+END
+
+CREATE TRIGGER `AddTimeAndMoney` BEFORE INSERT ON `work`
+ FOR EACH ROW BEGIN
+Set NEW.work_time = SUBTIME(SUBTIME(NEW.end_time, NEW.start_time), NEW.free_time);
+Set NEW.work_money = FORMAT(((HOUR(NEW.work_time)*60) + MINUTE(NEW.work_time)) * (NEW.money_per_hour/60),2);
+END

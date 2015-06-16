@@ -90,36 +90,36 @@
 					?>
 				</select>
 			</div>
-		<div id="free_time" >
-				<label for="free_time_h">Почивка:</label>
-				<div class="clear"></div>
-				<select id="free_time_h" class="time" name="free_time[hour]">
-					<?php
-						for($i = 0; $i <= 24;$i++){
-							$selected = "";
-							if($i == 1){
-								$selected = "selected";
+			<div id="free_time" >
+					<label for="free_time_h">Почивка:</label>
+					<div class="clear"></div>
+					<select id="free_time_h" class="time" name="free_time[hour]">
+						<?php
+							for($i = 0; $i <= 24;$i++){
+								$selected = "";
+								if($i == 1){
+									$selected = "selected";
+								}
+						?>
+							<option <?=$selected?>><?=$i?></option>
+						<?php
 							}
-					?>
-						<option <?=$selected?>><?=$i?></option>
-					<?php
-						}
-					?>
+						?>
+					</select>
+					<select id="free_time_m" name="free_time[minute]">
+						<?php
+							for($i = 0; $i < 60;$i += 5){
+								$selected = "";
+								if($i == 0){
+									$selected = "selected";
+								}
+						?>
+							<option <?=$selected?>><?=$i?></option>
+						<?php
+							}
+						?>
 				</select>
-				<select id="free_time_m" name="free_time[minute]">
-					<?php
-						for($i = 0; $i < 60;$i += 5){
-							$selected = "";
-							if($i == 0){
-								$selected = "selected";
-							}
-					?>
-						<option <?=$selected?>><?=$i?></option>
-					<?php
-						}
-					?>
-			</select>
-		</div>
+			</div>
 		</div>
 		<div class="clear"></div>
 		<label for="money">Пари на час:</label>

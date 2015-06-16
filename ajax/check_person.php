@@ -1,7 +1,7 @@
 ﻿<?php
 	$prep = $db_conn->prepare("Select  Person.*,
-		cast(SUM(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)) as time) as work_time,
-		FORMAT(SUM(((floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100/100)*60) + floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100)%100) * (Work.money_per_hour/60)),2) as money 
+		cast(SUM(Work.work_time) as time)	 as work_time,
+		FORMAT(SUM(Work.work_money),2) as money 
 		From Person Left Join Work On Work.person_id = Person.id   Where Person.id= :send_id
 		Group by Person.id");
 	$prep->execute($_POST); 
@@ -46,10 +46,7 @@
 	</li>
 </ul>
 <?php
-	$prep = $db_conn->prepare("Select *,
-		cast(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time) as time) as work_time,
-		FORMAT((((floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100/100)*60) + floor(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time)/100)%100) * (Work.money_per_hour/60)),2) as money 
-		From Work  Where person_id= :send_id order by work_date");
+	$prep = $db_conn->prepare("Select * From Work  Where person_id= :send_id order by work_date");
 	$prep->execute($_POST); 
 	$person_work_info = $prep->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -73,7 +70,7 @@
 			<td><?=$day['end_time']?></td>
 			<td><?=$day['money_per_hour']?></td>
 			<td><?=$day['work_time']?></td>
-			<td><?=$day['money']?></td>
+			<td><?=$day['work_money']?></td>
 			<td><button class="edit_person_day" data-id="<?=$day['id']?>">Редактиране</button></td>
 		</tr>
 	<?php

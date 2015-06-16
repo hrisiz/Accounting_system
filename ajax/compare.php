@@ -24,18 +24,15 @@
 			echo "<td>".date("d/m/Y", $i)."</td>";
 			$counter = 0;
 			foreach($persons as $person){
-				$prep = $db_conn->prepare("Select *,
-				cast(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time) as time) as work_time,
-				HOUR(cast(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time) as time)) as hours,
-				MINUTE(cast(SUBTIME(SUBTIME(Work.end_time , Work.start_time),Work.free_time) as time)) as minutes
+				$prep = $db_conn->prepare("Select *
 				From Work Where work_date = :date AND person_id = :person_id ");
 				$prep->execute(Array('date'=>date("Y-m-d",$i),'person_id'=>$person['id']));
 				$work_day = $prep->fetch();
 				if(empty($work_day)){
 					echo "<td>Няма</td>";
 				}else{
-					$day_time = floor($work_day['hours'])*60 + floor($work_day['minutes']);
-					$day_money = $day_time  * ($work_day['money_per_hour']/60);
+					$day_time = date('H',strtotime($work_day['work_time']))*60 + date('i',strtotime($work_day['work_time']));
+					$day_money = $work_day['work_money'];
 					echo "<td>".date("H:i", strtotime($work_day['start_time']))."
 					- ".date("H:i", strtotime($work_day['end_time']))." ( 
 					".date("H:i", strtotime($work_day['work_time']))."ч. ) - 
