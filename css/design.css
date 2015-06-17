@@ -127,3 +127,11 @@ div.front_js_show_page{
 div.clear{
 	clear:both;
 }
+
+.success{
+	color:lightgreen;
+}
+
+.error{
+	color:red;
+}

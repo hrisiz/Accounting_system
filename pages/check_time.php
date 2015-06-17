@@ -1,16 +1,41 @@
 ﻿<?php
 	if(isset($_POST['edit_person_day'])){
-		$prep = $db_conn->prepare("Select * From Work Where work_date = :work_date AND person_id = :person_id AND id <> :id");
+		if(!isset($_POST['person_id'])):
+			echo"<p class='error'>Не сте избрали човек.</p>";
+			goto error;
+		elseif(!validateDate($_POST['date'])):
+			echo "<p class='error'>Грешно въведена дата.</p>";
+			unset($_POST['date']);
+			goto error;
+		elseif(!isset($_POST['id'])):
+			echo "<p class='error'>Проблем! Моля свържете се с администратора.</p>";
+			goto error;
+		endif;
+		
+		$check_date = $db_conn->prepare("Select Count(*) From Work Where work_date = :work_date AND person_id = :person_id AND id <> :id");
 		$input = Array(
 			'id' => $_POST['id'],
 			'person_id' =>$_POST['person_id'],
 			'work_date'=>$_POST['date'],
 		);
-		$prep->execute($input);
-		if(count($prep->fetchAll()) > 0){
-			echo "Този човек вече е записан за тази дата";
+		$check_date->execute($input);
+		
+		$check_person = $db_conn->prepare("Select Count(*) From Person Where id = :person_id");
+		$check_person->execute(Array('person_id' =>$_POST['person_id'],));
+		
+		$check_work_day = $db_conn->prepare("Select Count(*) From Work Where id = :id");
+		$check_work_day->execute(Array('id' =>$_POST['id'],));
+		
+		if($check_date->fetch()[0] > 0):
+			echo "<p class='error'>Този човек вече е записан за тази дата</p>";
 			goto error;
-		}
+		elseif($check_person->fetch()[0]<= 0):
+			echo "<p class='error'>Невалидно въведен човек.</p>";
+			goto error;
+		elseif($check_work_day->fetch()[0]<= 0):
+			echo "<p class='error'>Невалиден ред. Моля свържете се с администратора.</p>";
+			goto error;
+		endif;
 		$input['start_time'] = $_POST['start_time']['hour'].":".$_POST['start_time']['minute'];
 		$input['end_time'] = $_POST['end_time']['hour'].":".$_POST['end_time']['minute'];
 		$input['free_time'] = $_POST['free_time']['hour'].":".$_POST['free_time']['minute'];
@@ -18,17 +43,23 @@
 			
 		$prep = $db_conn->prepare("Update Work Set person_id = :person_id, work_date = :work_date, start_time = :start_time, end_time = :end_time, free_time = :free_time, money_per_hour = :money_per_hour Where id=:id");
 		$prep->execute($input);
-		echo "Успешно редактирахте.";
-		error:
+		echo "<p class='success'>Успешно редактирахте.</p>";
 	}	
 	if(isset($_POST['delete_person_day'])){
 		$input = Array(
 			'id' =>$_POST['id']
 		);
+		$check_work_day = $db_conn->prepare("Select Count(*) From Work Where id = :id");
+		$check_work_day->execute($input);
+		if($check_work_day->fetch()[0]<= 0):
+			echo "<p class='error'>Невалиден ред. Моля свържете се с администратора.</p>";
+			goto error;
+		endif;
 		$prep = $db_conn->prepare("Delete From Work Where id=:id");
 		$prep->execute($input);
-		echo "Успешно изтрихте.";
+		echo "<p class='success'>Успешно изтрихте.</p>";
 	}
+	error:
 ?>
 <div id="show_all">
 	<?php

@@ -1,0 +1,5 @@
+[::1]06/17/2015 14:53:13 value:  		echo $_POST['end_date'];
+[::1]06/17/2015 14:53:22 value:  		echo $_POST['end_date'];
+[::1]06/17/2015 14:55:31 value:  		echo $_POST['start_date'];
+[::1]06/17/2015 14:55:40 value:  		echo $_POST['start_date'];
+[::1]06/17/2015 14:55:47 value:  		echo $_POST['start_date'];

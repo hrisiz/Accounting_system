@@ -1,6 +1,12 @@
 ﻿<?php 
 	if(isset($_POST['end_week'])){
-		//date check
+		if(!validateDate($_POST['start_date']) && !empty($_POST['start_date'])):
+			echo "<p class='error'>Грешно въведена дата за начален ден</p>";
+			goto error;
+		elseif(!validateDate($_POST['end_date']) && !empty($_POST['end_date'])):
+			echo "<p class='error'>Грешно въведена дата за краен ден</p>";
+			goto error;
+		endif;
 		$days = $db_conn->query("Select MAX(work_date) as last,MIN(work_date) as first From Work")->fetch(PDO::FETCH_ASSOC);
 		if(!empty($_POST['start_date'])){
 			$days['first'] = $_POST['start_date'];
@@ -37,7 +43,9 @@
 		}
 		$del = $db_conn->prepare("Delete from Work Where Work.work_date >= :first AND Work.work_date <= :last");
 		$del->execute($days);
+		echo "<p class='success'>Седмицата беше успешно завършена.</p>";
 	}
+	error:
 ?>
 <div>
 	<form method="POST">

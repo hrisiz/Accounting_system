@@ -17,7 +17,6 @@
 		$prep = $db_conn->prepare("Select MAX(work_date) as end,MIN(work_date) as start From Work ");
 		$prep->execute();
 		$all_for_person = array_fill(0 , count($persons) , Array('time'=>0,'money'=>0) );
-		//foreach($prep->fetchAll(PDO::FETCH_ASSOC) as $row){
 		$dates = $prep->fetch(PDO::FETCH_ASSOC);
 		for($i = strtotime($dates['start']); $i <= strtotime($dates['end']); $i = strtotime(date("Y-m-d",$i )."+1 day")){
 			echo "<tr>";
@@ -48,7 +47,7 @@
 		echo "<tr><td></td>";
 		foreach($all_for_person as $person_week_info){
 			$hours = floor($person_week_info['time']/60);
-			echo "<td>Общо: ".($hours).":".($person_week_info['time']%60)." - ".$person_week_info['money']."</td>";
+			echo "<td>Общо: ".sprintf('%02d',($hours)).":".sprintf('%02d',($person_week_info['time']%60))."ч. - ".$person_week_info['money']."лв</td>";
 		}
 		echo "</tr>";
 	?>

@@ -1,9 +1,31 @@
 ﻿<?php
 	if(isset($_POST['add_time'])){
-		if(!isset($_POST['person'])){
-				echo"<p>Не сте избрали хора.</p>";
+		
+		if(!isset($_POST['person'])):
+			echo"<p class='error'>Не сте избрали хора.</p>";
+			goto error;
+		elseif(!validateDate($_POST['date'])):
+			echo "<p class='error'>Грешно въведена дата.</p>";
+			unset($_POST['date']);
+			goto error;
+		endif;
+		foreach($_POST['person'] as $person_id => $value){
+			$person_check = $db_conn->prepare("Select * From Person Where id = :person");
+			$person_check->execute(Array('person' => $person_id));
+			$person_check = $person_check->fetch();
+			
+			$date_check = $db_conn->prepare("Select Count(*) From Work Where person_id=:person AND date = :date");
+			$date_check->execute(Array('person' => $person_id , 'date'=>$_POST['date']));
+			$date_check = $date_check->fetch()[0];
+			if($person_check <= 0):
+				echo "<p class='error'>Човекът с номер ".$person_id." не съществува.</p>";
 				goto error;
+			elseif($date_check <= 0):
+			echo "<p class='error'>Вече има въведено време за ".$person_check['first_name']." ".$person_check['family']." на ".$_POST['date'].".</p>";
+				goto error;
+			endif;
 		}
+		
 		$db_conn->beginTransaction();
 		$money = ":money";
 		if($_POST['money'] == 0){
@@ -26,12 +48,12 @@
 				'money' => $_POST['money'],
 				'date' => $_POST['date'],
 			);
-			$prep->execute($input) or die(print_r($db_conn->errorInfo(), true));;
+			$prep->execute($input);
 		}
 		$db_conn->commit();
-		echo "<p>Успешно беше добавено и записано време.</p>";
-		error:
+		echo "<p class='success'>Успешно беше добавено и записано време.</p>";
 	}
+	error:
 ?>
 <div id="input">
 	<form method="POST">

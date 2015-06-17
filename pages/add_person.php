@@ -11,27 +11,50 @@
 			
 			$prep->execute($insert_array);
 			$db_conn->commit();
-			echo "<p>Успешно беше добавен и записан ".$insert_array['first_name'].".</p>";
-			error:
+			echo "<p class='success'>Успешно беше добавен и записан ".$insert_array['first_name'].".</p>";
 		}
 	?>
 	<?php
 		if(isset($_POST['delete_person'])){
+			$input = Array('id'=>$_POST['id']);
+			$check_person = $db_conn->prepare("Select Count(*) From Person Where id = :id");
+			$check_person->execute($input);
+			if($check_person->fetch()[0] <= 0):
+				echo "<p class='error'>Проблем. Моля свържете се с администратора.</p>";
+				goto error;
+			endif;
 			$db_conn->beginTransaction();
-				$prep = $db_conn->query("Delete From Person Where id=".$_POST['id']);
-				$prep = $db_conn->query("Delete From Work Where person_id=".$_POST['id']);
+				$delete_person = $db_conn->prepare("Delete From Person Where id = :id");
+				$delete_person->execute($input);
+				$delete_person_time = $db_conn->prepare("Delete From Work Where person_id = :id");
+				$delete_person_time->execute($input);
 			$db_conn->commit();
-			echo "<p>Успешно беше изтрит време.</p>";
+			echo "<p class='success'>Успешно беше изтрит време.</p>";
 		}
 	?>
 	<?php
 		if(isset($_POST['edit_person'])){
-			$prep = $db_conn->prepare("Select * From Person Where id=:id");
 			$input = Array('id'=>$_POST['id']);
-			$prep->execute($input);
 			
-			$input = $_POST['person'];
-			$result_array = array_diff($input, $prep->fetch(PDO::FETCH_ASSOC));
+			$check_person = $db_conn->prepare("Select Count(*) From Person Where id = :id");
+			$check_person->execute($input);
+			
+			if($check_person->fetch()[0] <= 0):
+				echo "<p class='error'>Проблем. Моля свържете се с администратора.</p>";
+				goto error;
+			endif;
+			
+			$person_db_info = $db_conn->prepare("Select * From Person Where id=:id");
+			$person_db_info->execute($input);
+			
+			$person_db_info = $person_db_info->fetch(PDO::FETCH_ASSOC);
+			$result_array = array_diff($_POST['person'],$person_db_info);
+			foreach($result_array as $col => $val){
+				if(!isset($person_db_info[$col])){
+					echo "<p class='error'>Въведена е грешна колона. Моля свържете се с администратора.</p>";
+					goto error;
+				}
+			}
 			$result_array['id'] = $_POST['id'];
 			$query = "Update Person Set ";
 			foreach($result_array as $column => $value){
@@ -41,8 +64,9 @@
 			$query .= " Where id=:id";
 			$prep = $db_conn->prepare($query);
 			$prep->execute($result_array);
-			echo "<p>Успешно беше редактиран ".$_POST['person']['first_name'].".</p>";
+			echo "<p class='success'>Успешно беше редактиран ".$_POST['person']['first_name'].".</p>";
 		}
+		error:
 	?>
 </div>
 <div id="input">
