@@ -5,7 +5,12 @@
 		From Person Left Join Work On Work.person_id = Person.id   Where Person.id= :send_id
 		Group by Person.id");
 	$prep->execute($_POST); 
-	$person_info = $prep->fetchAll(PDO::FETCH_ASSOC)[0];
+	$person_info = $prep->fetchAll(PDO::FETCH_ASSOC);
+	if(count($person_info) <= 0){
+		echo "<p class='error'>Проблем! Моля свържете се с администратора.</p>";
+		exit();
+	}
+	$person_info = $person_info[0];
 ?>
 <ul id="person_info">
 	<li>

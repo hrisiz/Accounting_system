@@ -2,6 +2,7 @@
 	<?php
 		$input = "";
 		foreach($_POST['send_ids'] as $key=>$value){
+			echo $value;
 			$input .= "id = :".$key." OR ";
 		}
 		$input = substr($input,0,-3);
@@ -9,6 +10,10 @@
 		$prep->execute($_POST['send_ids']);
 		$money_sum = 100;
 		$persons = $prep->fetchAll(PDO::FETCH_ASSOC);
+		if(count($persons) <= 0){
+			echo "<p class='error'>Проблем! Моля свържете се с администратора.</p>";
+			exit();
+		}
 		echo "<tr><th>Дата</th>";
 		foreach($persons as $person){
 			echo "<th>".$person['first_name']."</th>";
@@ -50,5 +55,6 @@
 			echo "<td>Общо: ".sprintf('%02d',($hours)).":".sprintf('%02d',($person_week_info['time']%60))."ч. - ".$person_week_info['money']."лв</td>";
 		}
 		echo "</tr>";
+		error:
 	?>
 </table>

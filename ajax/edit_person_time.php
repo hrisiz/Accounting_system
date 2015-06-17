@@ -1,7 +1,12 @@
 ﻿<?php
 	$prep = $db_conn->prepare("Select * From Work Where id=:send_id");
 	$prep->execute($_POST);
-	$row = $prep->fetch(PDO::FETCH_ASSOC);
+	$row = $prep->fetchAll(PDO::FETCH_ASSOC);
+	if(count($row) <= 0){
+		echo "<p class='error'>Проблем! Моля свържете се с администратора.</p>";
+		exit();
+	}
+	$row = $row[0];
 	$prep = $db_conn->prepare("Select * From Person");
 	$prep->execute();
 	$persons = $prep->fetchAll(PDO::FETCH_ASSOC);

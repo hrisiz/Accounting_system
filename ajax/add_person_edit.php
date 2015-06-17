@@ -2,7 +2,12 @@
 	$prep = $db_conn->prepare("Select * From Person Where id=:id");
 	$input = Array('id'=>$_POST['send_id']);
 	$prep->execute($input);
-	$person_info = $prep->fetch();
+	$person_info = $prep->fetchAll();
+	if(count($person_info) <= 0){
+		echo "<p class='error'>Проблем! Моля свържете се с администратора.</p>";
+		exit();
+	}
+	$person_info = $person_info[0];
 ?>
 	<form method="POST">
 		<input type="hidden" name="id" value="<?=$person_info['id']?>"\>
