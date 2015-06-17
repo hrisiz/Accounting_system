@@ -128,6 +128,18 @@ div.clear{
 	clear:both;
 }
 
+.error,.success{
+	font-size:2em;
+	margin:0px;
+}
+.error.hide,.success.hide{
+	opacity:0.3;
+	transition:1s;
+}
+.error.hide:hover,.success.hide:hover{
+	opacity:1;
+	transition:0s;
+}
 .success{
 	color:lightgreen;
 }

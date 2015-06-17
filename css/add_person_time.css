@@ -42,6 +42,28 @@ section > div#input > form  div#time select{
 	display:inline;
 	border-radius:0px;
 }
+
+section > div#input > form  div#time > div#free_time{
+	width:100%;
+	margin:0px;
+	float:left;
+	border-radius:0px;
+}
+section > div#input > form  div#time > div#free_time > select{
+	width:20%;
+}
+section > div#input > form  div#time > div#free_time > select:nth-child(4){
+	border-top-right-radius:100px;
+	border-bottom-right-radius:100px;
+}
+button#freeday{
+	font-size:1.2em;
+	width:50%;
+	float:right;
+	border-top-left-radius:100px;
+	border-bottom-left-radius:100px;
+}
+
 section > div#input > form input:focus,section > div#input > form select:focus{
 	border: 2px solid gold;
 	outline:none;

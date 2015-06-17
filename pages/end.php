@@ -22,13 +22,13 @@
 		$prep = $db_conn->prepare($select_persons_query);
 		$prep->execute($days);
 		foreach($prep->fetchAll(PDO::FETCH_ASSOC) as $person){
-			$output ="Име: ".$person['first_name']."\r\nПрезиме: ".$person['second_name']."\r\nФамилия: ".$person['family']."\r\nЕлектронна поша: ".$person['email']."\r\nАдрес: ".$person['address']."\r\nТелефон: ".$person['phone']."\r\nПари на час: ".$person['money_per_hour']."\r\nВреме на работа за седмицата: ".$person['work_time']."\r\nПари за седмицата: ".$person['money']."\r\n\r\nНачало,Край,Пари на час,Дата,Работно време,Пари \r\n";
+			$output ="Име: ".$person['first_name']."\r\nПрезиме: ".$person['second_name']."\r\nФамилия: ".$person['family']."\r\nЕлектронна поша: ".$person['email']."\r\nАдрес: ".$person['address']."\r\nТелефон: ".$person['phone']."\r\nПари на час: ".$person['money_per_hour']."\r\nВреме на работа за седмицата: ".$person['work_time']."\r\nПари за седмицата: ".$person['money']."\r\n\r\nДата,Начало,Край,Пари на час,Работно време,Пари \r\n";
 			$output .= "\r\n";
 			$select_query =  "Select 
+			work_date,
 			start_time,
 			end_time,
-			money_per_hour
-			work_date,
+			money_per_hour,
 			work_time,
 			work_money
 			From Work Where Work.person_id = :person_id AND Work.work_date >= :first AND Work.work_date <= :last order by work_date";

@@ -3,6 +3,21 @@
 		$('div.back_js_show_page').hide();
 		$('div.front_js_show_page').hide();
 	});
+	// if($('p.error,p.success').length > 0){
+		// var top_nav = $('header').html();
+		// $('header').html($('p.error,p.success').clone().addClass('show'));
+		// $('.show').show();
+		// setTimeout(function(){
+			// $('p.error,p.success').fadeOut(500);
+			// setTimeout(function(){
+					// $('header').html(top_nav);
+			// },500)
+		// },1000);
+	// }
+	setTimeout(function(){
+		$('p.error,p.success').addClass('hide');
+	},1000);
+	
  });
  function create_datepicker(selector){
 	$.datepicker.regional['bg'] = {
@@ -27,4 +42,5 @@
 		dateFormat: "yy-mm-dd"
 	});
 	$.datepicker.setDefaults($.datepicker.regional['bg']);
+
  }

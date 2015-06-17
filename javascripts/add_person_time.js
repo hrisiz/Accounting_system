@@ -25,4 +25,10 @@
 			}
 		});
 	});
+	$(document).on('click','#freeday',function(){
+		if(confirm("Сигурни ли сте че тези хора са почивали ?")){
+			$('#time select').val(0);
+			$('#add_time').trigger('click');
+		}
+	});
 });

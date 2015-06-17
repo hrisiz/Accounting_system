@@ -28,91 +28,31 @@
 				<label for="end_time_h">Начало на работния ден:</label>
 				<div class="clear"></div>
 				<select id="start_time_h" name="start_time[hour]">
-					<?php
-						for($i = 0; $i <= 24;$i++){
-							$selected = "";
-							if($i == date('H',strtotime($row['start_time']))){
-								$selected = "selected";
-							}
-					?>
-						<option <?=$selected?>><?=$i?></option>
-					<?php
-						}
-					?>
+					<?=time_pick_values(24,date('H',strtotime($row['start_time'])));?>
 				</select>
 				<select name="start_time[minute]">
-					<?php
-						for($i = 0; $i < 60;$i += 5){
-							$selected = "";
-							if($i ==  date('i',strtotime($row['start_time']))){
-								$selected = "selected";
-							}
-					?>
-						<option <?=$selected?>><?=$i?></option>
-					<?php
-						}
-					?>
+					<?=time_pick_values(60,date('i',strtotime($row['start_time'])),5);?>
 				</select>
 			</div>
 			<div id="end_time" >
 				<label for="end_time_h">Край на работния ден:</label>
 				<div class="clear"></div>
 				<select id="end_time_h" name="end_time[minute]">
-					<?php
-						for($i = 0; $i < 60;$i += 5){
-							$selected = "";
-							if($i ==date('i',strtotime($row['end_time']))){
-								$selected = "selected";
-							}
-					?>
-						<option <?=$selected?>><?=$i?></option>
-					<?php
-						}
-					?>
+					<?=time_pick_values(60,date('i',strtotime($row['end_time'])),5);?>
 			</select>
 				<select id="end_time_h" class="time" name="end_time[hour]">
-					<?php
-						for($i = 0; $i <= 24;$i++){
-							$selected = "";
-							if($i == date('H',strtotime($row['end_time']))){
-								$selected = "selected";
-							}
-					?>
-						<option <?=$selected?>><?=$i?></option>
-					<?php
-						}
-					?>
+					<?=time_pick_values(24,date('H',strtotime($row['end_time'])));?>
 				</select>
 			</div>
 			<div id="free_time" >
 					<label for="free_time_h">Почивка:</label>
 					<div class="clear"></div>
 					<select id="free_time_h" class="time" name="free_time[hour]">
-						<?php
-							for($i = 0; $i <= 24;$i++){
-								$selected = "";
-								if($i == 1){
-									$selected = "selected";
-								}
-						?>
-							<option <?=$selected?>><?=$i?></option>
-						<?php
-							}
-						?>
+					<?=time_pick_values(24,date('H',strtotime($row['free_time'])));?>
 					</select>
 					<select id="free_time_m" name="free_time[minute]">
-						<?php
-							for($i = 0; $i < 60;$i += 5){
-								$selected = "";
-								if($i == 0){
-									$selected = "selected";
-								}
-						?>
-							<option <?=$selected?>><?=$i?></option>
-						<?php
-							}
-						?>
-				</select>
+						<?=time_pick_values(60,date('i',strtotime($row['free_time'])),5);?>
+					</select>
 			</div>
 
 		</div>
