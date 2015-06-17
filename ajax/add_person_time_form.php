@@ -10,7 +10,7 @@
 				<?php 
 					$prep = $db_conn->prepare("Select Person.* From Person Left Join Work On Work.person_id = Person.id AND Work.work_date = :date Where Work.work_date is null");
 					$input = Array('date'=>$date);
-					$prep->execute($input)
+					$prep->execute($input);
 					$persons_info = $prep->fetchAll(PDO::FETCH_ASSOC);
 					if(count($persons_info) <= 0){
 				?>
