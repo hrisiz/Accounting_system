@@ -22,6 +22,7 @@
 				<a href="?page=PersonCreate">Добавяне на човек</a> 
 				<a href="?page=AddPersonTime">Добавяне на време</a> 
 				<a href="?page=CheckTime">Проверка</a> 
+				<a href="?page=Bonuses">Аванс</a> 
 				<a href="?page=End">Завършване</a>
 			</nav>
 		</header>

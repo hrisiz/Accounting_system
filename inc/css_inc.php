@@ -5,5 +5,8 @@
 	}
 	$root = parse_ini_file("config/root.ini");
 	if(isset($root[$page])){
-		echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/".$root[$page].".css\">";
+		$file_name = "css/".$root[$page].".css";
+		if(file_exists($file_name)){
+			echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$file_name."\">";
+		}
 	}
