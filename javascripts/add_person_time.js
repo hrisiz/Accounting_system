@@ -1,4 +1,4 @@
- jQuery(document).ready(function($){
+jQuery(document).ready(function($){
 	create_datepicker('#datepicker');
 	$(document).on('click','div#persons>ul>li',function(){
 		var li_elem = $(this);

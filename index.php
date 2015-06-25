@@ -25,6 +25,7 @@
 				<a href="?page=CheckTime">Проверка</a> 
 				<a href="?page=Bonuses">Аванс</a> 
 				<a href="?page=End">Завършване</a>
+				<a href="?page=LogOut">Изход</a>
 			</nav>
 		</header>
 		<section>
