@@ -1,0 +1,38 @@
+﻿<html>
+	<head>
+		<style>
+			p.show_error{
+				display:none;
+			}
+			div#authentication{
+				margin-top:5%;
+				width:100%;
+				text-align:center;
+			}
+			form > label{
+				font-size:1.2em;
+				display:block;
+			}
+			form > input{
+				font-size:1.5em;
+				width:50%;
+				margin-top:10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="authentication">
+			<h1>За да достъпите сайта моля потвърдете достъпа си.</h1>
+			<form method="POST">
+				<label>Потребител:</label>
+				<input name="account[user]"/>
+				<label>Парола:</label>
+				<input type="password" name="account[password]"/>
+				<input type="submit" name="authenticate" value="Вход"/>
+			</form>
+		</div>
+	</body>
+</html>
+<script>
+	alert(document.getElementsByClassName("show_error")[0].innerHTML);
+</script>

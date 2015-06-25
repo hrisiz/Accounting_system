@@ -47,8 +47,16 @@ Create Table if not exists Bonus(
 	Constraint fk2 foreign key Bonus(type) references Bonus_type(id)
 ) ENGINE InnoDB Default charset=utf8;
 
+use work;
+Create Table if not exists Account(
+	id int primary key auto_increment,
+	user_name varchar(50) not null,
+	password binary(128) not null	
+);
+Insert Into Account(user_name,password) Values('geri_1966',SHA2('PowerPass-zima123', 512));
 
-use work
+
+use work;
 CREATE TRIGGER `EditTimeAndMoney` BEFORE UPDATE ON `work`
  FOR EACH ROW BEGIN
 Set NEW.work_time = SUBTIME(SUBTIME(NEW.end_time, NEW.start_time), NEW.free_time);

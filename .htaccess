@@ -1,5 +1,10 @@
 order deny,allow
 deny from all
 allow from 127.0.0.1
+allow from 192.168.0.100
+allow from 192.168.0.101
+allow from 192.168.0.102
+allow from 192.168.0.103
+allow from 192.168.0.104
 
 AddDefaultCharset UTF-8
