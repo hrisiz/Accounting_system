@@ -70,10 +70,10 @@
 				<label for="end_time_h">Начало на работния ден:</label>
 				<div class="clear"></div>
 				<select id="start_time_h" name="start_time[hour]">
-					<?=time_pick_values(24,8);?>
+					<?=time_pick_values(24,(isset($_POST['start_time']['hour']) ? $_POST['start_time']['hour']:8));?>
 				</select>
 				<select name="start_time[minute]">
-					<?=time_pick_values(59,0,5);?>
+					<?=time_pick_values(59,(isset($_POST['start_time']['hour']) ? $_POST['start_time']['hour']:0),5);?>
 				</select>
 			</div>
 			<div id="end_time" >
