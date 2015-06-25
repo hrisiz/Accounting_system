@@ -1,8 +1,5 @@
  jQuery(document).ready(function($){
 	create_datepicker('#datepicker');
-	$(document).on('click','input#persons_input',function(){
-		$('div#persons').toggle();
-	});
 	$(document).on('click','div#persons>ul>li',function(){
 		var li_elem = $(this);
 		if(li_elem.hasClass('selected')){

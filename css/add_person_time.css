@@ -73,13 +73,9 @@ section > div#input > form div#persons{
 	width:99%;
 	margin:0px;
 	background-color:white;
-	position:absolute;
-	display:none;
 	overflow:hidden;
-	border-bottom-left-radius:10px;
 	border-bottom-right-radius:10px;
-	padding:0px;
-	margin-top:-10px;
+	padding:10px 0px;
 }
 section > div#input > form div#persons input[type="checkbox"]{
 	display:none;

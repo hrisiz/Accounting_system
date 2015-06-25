@@ -5,7 +5,6 @@
 	}
 ?>		
 		<label for="person">Човек:</label>
-		<input type="text" id="persons_input" value="Показване/Скриване" readonly />
 		<div id="persons">
 				<?php 
 					$prep = $db_conn->prepare("Select Person.* From Person Left Join Work On Work.person_id = Person.id AND Work.work_date = :date Where Work.work_date is null");
