@@ -1,5 +1,4 @@
 <?php
-	session_start();
 	include "inc.php";
 ?>
 <!DOCTYPE html />
@@ -34,7 +33,7 @@
 			<?php include "inc/switch.php";?>
 		</section>
 		<footer>
-			<p>Create by Grizis!</p>
+			<p>Copyright &copy; All Rights Reserved Grizis!</p>
 		</footer>
 	</body>
 </html>
