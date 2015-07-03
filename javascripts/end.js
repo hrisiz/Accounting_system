@@ -23,7 +23,6 @@ function next_person(person,start_date,end_date){
 		type:'post',
 		data:{
 			"send_id":person,
-			"send_start_date":start_date,
 			"send_end_date":end_date
 		},
 		url: "ajax.php?page=EndWeekCheck", 

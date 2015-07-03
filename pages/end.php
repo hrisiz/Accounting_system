@@ -1,5 +1,6 @@
 ﻿<?php
 	if(isset($_POST['end_week'])){
+		$db_conn->beginTransaction();
 		if(!validateDate($_POST['start_date']) && !empty($_POST['start_date'])):
 			echo "<p class='error'>Грешно въведена дата за начален ден</p>";
 			goto error;
@@ -22,6 +23,11 @@
 		$prep = $db_conn->prepare($select_persons_query);
 		$prep->execute($days);
 		foreach($prep->fetchAll(PDO::FETCH_ASSOC) as $person){
+			$balance_money = explode(".",$person['money']);
+			$person['money'] = $balance_money[0];
+			$person_balance = $db_conn->prepare("Update Person Set balance = balance + :balance Where id=:person_id");
+			$person_balance->execute(Array('balance'=>$balance_money[1]/100,'person_id'=>$person['id']));
+			$person['money'] = floor($person['money']);
 			$output ="Име: ".$person['first_name']."\r\nПрезиме: ".$person['second_name']."\r\nФамилия: ".$person['family']."\r\nЕлектронна поша: ".$person['email']."\r\nАдрес: ".$person['address']."\r\nТелефон: ".$person['phone']."\r\nПари на час: ".$person['money_per_hour']."\r\nВреме на работа за седмицата: ".$person['work_time']."\r\nПари за седмицата: ".$person['money']."\r\n\r\nДата,Начало,Край,Пари на час,Работно време,Пари \r\n";
 			$output .= "\r\n";
 			$select_query =  "Select 
@@ -43,8 +49,10 @@
 		}
 		$del = $db_conn->prepare("Delete from Work Where Work.work_date >= :first AND Work.work_date <= :last");
 		$bonuses = $db_conn->prepare("Update Bonus Set current_money = current_money - money_per_week Where use_now = 1");
-		$db_conn->beginTransaction();
+		$del_bonuses = $db_conn->prepare("Delete From Bonus Where current_money <= 0");
 		$del->execute($days);
+		$bonuses->execute();
+		$del_bonuses->execute();
 		$db_conn->commit();
 		echo "<p class='success'>Седмицата беше успешно завършена.</p>";
 	}

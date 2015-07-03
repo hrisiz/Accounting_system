@@ -11,6 +11,7 @@
 		exit();
 	}
 	$person_info = $person_info[0];
+	$person_info['money'] = explode(".",$person_info['money']);
 ?>
 <div id="options">
 	<button id="previous_person">Предишен</button>
@@ -19,33 +20,27 @@
 	<button id="next_person">Следжащ</button>
 </div>
 <?php
-	// if(!validateDate($_POST['send_start_date']) && !empty($_POST['send_start_date'])):
-		// echo "<p class='error'>Грешно въведена дата за начален ден</p>";
-		// goto error;
-	// elseif(!validateDate($_POST['send_end_date']) && !empty($_POST['send_end_date'])):
-		// echo "<p class='error'>Грешно въведена дата за краен ден</p>";
-		// goto error;
-	// endif;
-	// $days = $db_conn->query("Select MAX(work_date) as last,MIN(work_date) as first From Work")->fetch(PDO::FETCH_ASSOC);
-	// if(!empty($_POST['send_start_date'])){
-		// $days['first'] = $_POST['send_start_date'];
-	// }
-	// if(!empty($_POST['send_end_date'])){
-		// $days['last'] = $_POST['send_end_date'];
-	// }
-	// $days['send_id'] = $_POST['send_id'];
-	// $select_person_bonuses_query = "Select Bonus.*,Bonus_type.name as type_name From Bonus Left Join Bonus_type On Bonus_type.id = Bonus.type Where 
-	// Bonus.start_date >= :first AND 
-	// Bonus.start_date <= :last AND 
-	// Bonus.person_id = :send_id";
-	$select_person_bonuses_query = "Select 
-	Bonus.*,
-	Bonus_type.name as type_name 
-	From Bonus Left Join Bonus_type On Bonus_type.id = Bonus.type 
-	Where Bonus.person_id = :send_id";
+	if(!validateDate($_POST['send_end_date']) && !empty($_POST['send_end_date'])):
+		echo "<p class='error'>Грешно въведена дата за краен ден</p>";
+		goto error;
+	endif;
+	$days = $db_conn->query("Select MAX(work_date) as last From Work")->fetch(PDO::FETCH_ASSOC);
+
+	if(!empty($_POST['send_end_date'])){
+		$days['last'] = $_POST['send_end_date'];
+	}
+	$days['send_id'] = $_POST['send_id'];
+	$select_person_bonuses_query = "Select Bonus.*,Bonus_type.name as type_name From Bonus Left Join Bonus_type On Bonus_type.id = Bonus.type Where 
+	Bonus.start_date <= :last AND 
+	Bonus.person_id = :send_id";
+	// $select_person_bonuses_query = "Select 
+	// Bonus.*,
+	// Bonus_type.name as type_name 
+	// From Bonus Left Join Bonus_type On Bonus_type.id = Bonus.type 
+	// Where Bonus.person_id = :send_id";
 	$prep = $db_conn->prepare($select_person_bonuses_query);
-	$prep->execute(Array('send_id'=>$_POST['send_id']));
-	$prep->execute(Array('send_id'=>$_POST['send_id']));
+	$prep->execute($days);
+	// $prep->execute(Array('send_id'=>$_POST['send_id']));
 ?>
 <ul id="person_info">
 	<li>
@@ -62,18 +57,26 @@
 	</li>
 	<li>
 		<p>Пари за седмицата:</p>
-		<p><?=$person_info['money']?> лв.</p>
+		<p><?=$person_info['money'][0]?> лв.</p>
+	</li>
+	<li>
+		<p>Останали пари от седмиците:</p>
+		<p><?=(($person_info['money'][1]/100) + $person_info['balance'])?> лв.</p>
 	</li>
 	<?php
 		$take_money = 0;
 		foreach($prep->fetchAll(PDO::FETCH_ASSOC) as $bonus){
-		if($bonus['use_now'] != 0){
-			$take_money += $bonus['money_per_week'];
-		}
+			$pay_now = $bonus['money_per_week'];
+			if($bonus['money_per_week'] > $bonus['current_money']){
+				$pay_now = $bonus['current_money'];
+			}
+			if($bonus['use_now'] != 0){
+				$take_money += $pay_now;
+			}
 	?>
 	<li <?=(($bonus['use_now'] == 0)? "class=\"not_used_bonus\"":"")?>>
 		<p><?=$bonus['type_name']?>:</p>
-		<p><input data-takemoney="<?=$bonus['money_per_week']?>" data-id="<?=$bonus['id']?>" type="checkbox" class="bonus" <?=(($bonus['use_now'] != 0)? "checked":"")?>/></p>
+		<p><input data-takemoney="<?=$pay_now?>" data-id="<?=$bonus['id']?>" type="checkbox" class="bonus" <?=(($bonus['use_now'] != 0)? "checked":"")?>/></p>
 		<p>
 		<ul>
 			<li>
@@ -82,7 +85,7 @@
 			</li>
 			<li>
 				<p>Изплатени сега:</p>
-				<p><?=$bonus['money_per_week']?> лв.</p>
+				<p><?=$pay_now?> лв.</p>
 			</li>
 			<li>
 				<p>Оставащи пари:</p>
@@ -96,7 +99,7 @@
 	?>
 	<li>
 		<p>Дадени пари:</p>
-		<p id="end_money_for_week"><span><?=($person_info['money'] - $take_money)?></span> лв.</p>
+		<p id="end_money_for_week"><span><?=($person_info['money'][0] - $take_money)?></span> лв.</p>
 	</li>
 </ul>
 <?php
