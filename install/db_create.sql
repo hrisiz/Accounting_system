@@ -32,7 +32,7 @@ Create Table if not exists Bonus_type(
 	id int primary key auto_increment,
 	name varchar(50)
 ) ENGINE InnoDB Default charset=utf8;
-Insert Into Bonus_type(name) Values('Аванс'),('Бонус'),('Заем');
+Insert Into Bonus_type(name) Values('Аванс'),('Заем');
 
 use work;
 Create Table if not exists Bonus(
@@ -46,6 +46,32 @@ Create Table if not exists Bonus(
 	Constraint fk1 foreign key Bonus(person_id) references Person(id),
 	Constraint fk2 foreign key Bonus(type) references Bonus_type(id)
 ) ENGINE InnoDB Default charset=utf8;
+Alter Table Bonus Add Column use_now smallint not null default 0
+
+use work;
+CREATE TRIGGER `BonusUse` BEFORE INSERT ON `bonus`
+ FOR EACH ROW BEGIN
+    IF (CAST(NEW.start_date as date) <= CAST(CURDATE() as date)) THEN
+        SET NEW.use_now = 1;
+    ELSE
+        SET NEW.use_now = 0;
+    END IF;
+END
+
+
+CREATE DEFINER=`root`@`localhost` EVENT `BonusesDate` ON SCHEDULE 
+EVERY 1 DAY STARTS '2015-07-03 21:57:27' 
+ON COMPLETION NOT PRESERVE ENABLE DO 
+Update Bonus Set use_now = 1 Where start_date <= CAST(CURDATE() as date)
+
+
+use work;
+CREATE TRIGGER `UpdateMoney` AFTER INSERT ON `bonus`
+ FOR EACH ROW BEGIN
+IF (NEW.current_money = 0) THEN
+	Delete From Bonus Where id=NEW.id;
+END IF;
+END
 
 use work;
 Create Table if not exists Account(
@@ -54,7 +80,6 @@ Create Table if not exists Account(
 	password binary(128) not null	
 );
 Insert Into Account(user_name,password) Values('geri_1966',SHA2('PowerPass-zima123', 512));
-
 
 use work;
 CREATE TRIGGER `EditTimeAndMoney` BEFORE UPDATE ON `work`

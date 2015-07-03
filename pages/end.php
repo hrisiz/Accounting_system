@@ -1,4 +1,4 @@
-﻿<?php 
+﻿<?php
 	if(isset($_POST['end_week'])){
 		if(!validateDate($_POST['start_date']) && !empty($_POST['start_date'])):
 			echo "<p class='error'>Грешно въведена дата за начален ден</p>";
@@ -42,17 +42,25 @@
 			file_put_contents("history/".iconv("UTF-8", "Windows-1251",$person['first_name'])."-".$days['first']."=-=".$days['last'].".log",$output); 
 		}
 		$del = $db_conn->prepare("Delete from Work Where Work.work_date >= :first AND Work.work_date <= :last");
+		$bonuses = $db_conn->prepare("Update Bonus Set current_money = current_money - money_per_week Where use_now = 1");
+		$db_conn->beginTransaction();
 		$del->execute($days);
+		$db_conn->commit();
 		echo "<p class='success'>Седмицата беше успешно завършена.</p>";
 	}
 	error:
 ?>
 <div>
-	<form method="POST">
+	<form id="end_week_form" method="POST">
 		<label>Начало на седмицата:</label>
-		<input type="text" class="datepicker" name="start_date"/>
+		<input type="text" class="datepicker" id="start_date" name="start_date"/>
 		<label>Край на седмицата:</label>
-		<input type="text" class="datepicker" name="end_date"/>
+		<input type="text" class="datepicker" id="end_date" name="end_date"/>
+		<input type="button" id="end_week_with_info" value="Провери и завърши"/>
 		<input type="submit" name="end_week" value="Изчисти"/>
 	</form>
+</div>
+
+<div class="front_js_show_page" id="end_week_people_info">
+
 </div>

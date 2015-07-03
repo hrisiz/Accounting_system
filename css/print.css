@@ -1,0 +1,23 @@
+div#options{
+	display:none;
+}
+td{
+	text-align:center;
+}
+ul#person_info{
+	list-style-type:none;
+	text-align:left;
+}
+li{
+	margin:10px 0px;
+}
+li > p{
+	display:inline;
+	padding-right:10px;
+}
+table{
+	width:100%;
+}
+h1{
+	text-align:center;
+}

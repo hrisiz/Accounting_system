@@ -2,7 +2,7 @@
 	$prep = $db_conn->prepare("Select  Person.*,
 		SEC_TO_TIME(SUM(TIME_TO_SEC(Work.work_time))) as work_time,
 		FORMAT(SUM(Work.work_money),2) as money 
-		From Person Left Join Work On Work.person_id = Person.id   Where Person.id= :send_id
+		From Person Left Join Work On Work.person_id = Person.id Where Person.id= :send_id
 		Group by Person.id");
 	$prep->execute($_POST); 
 	$person_info = $prep->fetchAll(PDO::FETCH_ASSOC);

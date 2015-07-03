@@ -21,7 +21,7 @@
 		elseif($_POST['Bonus']['money'] < $_POST['Bonus']['money_per_week']):
 			echo "<p class='error'>Взетите пари са повече от тези които трябва да бъдат върнати за седмица.</p>";
 			goto error;
-		elseif(strtotime($_POST['Bonus']['start_date']) < time()):
+		elseif(strtotime($_POST['Bonus']['start_date']) < strtotime(date('Y-m-d',time()))):
 			echo "<p class='error'>Датата е преди днешната.</p>";
 			goto error;
 		endif;

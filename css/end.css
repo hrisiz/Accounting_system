@@ -1,0 +1,32 @@
+div#end_week_people_info ul#person_info{
+	list-style-type:none;
+	text-align:left;
+}
+div#end_week_people_info ul#person_info  li{
+ margin:10px 0px ;
+}
+div#end_week_people_info ul#person_info  li  p{
+	display:inline;
+	padding-right:10px;
+}
+div#end_week_people_info td{
+	color:white;
+	text-align:center;
+}
+div#end_week_people_info th{
+	color:gold;
+	text-align:center;
+}
+div#end_week_people_info input[type=checkbox].bonus{
+	width:auto;
+	height:auto;
+	display:inline;
+	margin-left:10px;
+	
+}
+input[name=end_week]{
+	display:none;
+}
+.not_used_bonus{
+	color:red;
+}
