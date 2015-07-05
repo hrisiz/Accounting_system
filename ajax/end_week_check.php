@@ -47,7 +47,7 @@
 		<p>Име:</p>
 		<p><?=$person_info['first_name']?> <?=$person_info['second_name']?> <?=$person_info['family']?></p>
 	</li>
-	<li>
+	<li  class="not_for_print">
 		<p>Пари на час:</p>
 		<p><?=$person_info['money_per_hour']?> лева/час</p>
 	</li>
@@ -59,9 +59,9 @@
 		<p>Пари за седмицата:</p>
 		<p><?=$person_info['money'][0]?> лв.</p>
 	</li>
-	<li>
+	<li class="not_for_print">
 		<p>Останали пари от седмиците:</p>
-		<p><?=(($person_info['money'][1]/100) + $person_info['balance'])?> лв.</p>
+		<p><?=((($person_info['money'][1]/100) + $person_info['balance']) >= REWRITE_BALANCE ? ((($person_info['money'][1]/100) + $person_info['balance'])-REWRITE_BALANCE):(($person_info['money'][1]/100) + $person_info['balance']))?> лв.</p>
 	</li>
 	<?php
 		$take_money = 0;
@@ -78,20 +78,20 @@
 		<p><?=$bonus['type_name']?>:</p>
 		<p><input data-takemoney="<?=$pay_now?>" data-id="<?=$bonus['id']?>" type="checkbox" class="bonus" <?=(($bonus['use_now'] != 0)? "checked":"")?>/></p>
 		<p>
-		<ul>
-			<li>
-				<p>Взети пари:</p>
-				<p><?=$bonus['money']?> лв.</p>			
-			</li>
-			<li>
-				<p>Изплатени сега:</p>
-				<p><?=$pay_now?> лв.</p>
-			</li>
-			<li>
-				<p>Оставащи пари:</p>
-				<p><?=$bonus['current_money']?> лв.</p>			
-			</li>
-		</ul>
+			<ul>
+				<li>
+					<p>Взети пари:</p>
+					<p><?=$bonus['money']?> лв.</p>			
+				</li>
+				<li class="pay_now" <?=(($bonus['use_now'] == 0) ? "style=\"display:none\"" : "");?>>
+					<p>Изплатени сега:</p>
+					<p><span><?=$pay_now?></span> лв.</p>
+				</li>
+				<li class="remaining_money">
+					<p>Оставащи пари:</p>
+					<p><span><?=($bonus['current_money']-(($bonus['use_now'] != 0) ? $pay_now:0))?></span> лв.</p>			
+				</li>
+			</ul>
 		</p>
 	</li>
 	<?php
@@ -99,7 +99,7 @@
 	?>
 	<li>
 		<p>Дадени пари:</p>
-		<p id="end_money_for_week"><span><?=($person_info['money'][0] - $take_money)?></span> лв.</p>
+		<p id="end_money_for_week"><span><?=(($person_info['money'][0] - $take_money)+((($person_info['money'][1]/100) + $person_info['balance']) >= REWRITE_BALANCE ? REWRITE_BALANCE:0))?></span> лв.</p>
 	</li>
 </ul>
 <?php
@@ -107,13 +107,13 @@
 	$prep->execute(Array('send_id'=>$_POST['send_id'])); 
 	$person_work_info = $prep->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<h1>Работни дни</h1>
-<table id="work_time_info">
+<h1 class="not_for_print">Работни дни</h1>
+<table class="not_for_print" id="work_time_info">
 	<tr>
 		<th>Дата</th>
 		<th>Начало</th>
 		<th>Край</th>
-		<th>Пари на час</th>
+		<th class="not_for_print">Пари на час</th>
 		<th>Време за деня</th>
 		<th>Пари за деня</th>
 	</tr>
@@ -124,7 +124,7 @@
 			<td><?=$day['work_date']?></td>
 			<td><?=$day['start_time']?></td>
 			<td><?=$day['end_time']?></td>
-			<td><?=$day['money_per_hour']?></td>
+			<td class="not_for_print"><?=$day['money_per_hour']?></td>
 			<td><?=$day['work_time']?></td>
 			<td><?=$day['work_money']?></td>
 		</tr>

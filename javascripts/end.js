@@ -75,12 +75,13 @@ $(document).ready(function(){
 	$(document).on("click","#print_person",function(){
 		var clone = $("div#end_week_people_info").clone();
 		clone.find('input[type=checkbox].bonus').each(function(){
-			if($(this).is(":checked")){
-				$(this).replaceWith("Удържан");
+			if(!$(this).is(":checked")){
+				$(this).parents("li").addClass("not_for_print");
 			}else{
-				$(this).replaceWith("Не е удържан.");
+				$(this).addClass("not_for_print");
 			}
 		});
+		clone.find(".not_for_print").replaceWith("");
 		print_elem(clone.html());
 	});
 	$(document).on('change','input[type=checkbox].bonus',function(){
@@ -97,7 +98,7 @@ $(document).ready(function(){
 			},
 			url: "ajax.php?page=ChangeBonus", 
 			success: function(result){
-				alert(result);
+				//alert(result);
 			},
 			error:function(){
 				alert("Възникна проблем. Моля свържете се с администратора.");
@@ -106,12 +107,17 @@ $(document).ready(function(){
 				alert("Възникна проблем. Моля свържете се с администратора.");
 			}
 		});
+		var span = this_checbox.parents("li").find("li.remaining_money>p>span");
 		if(!this_checbox.is(':checked')){
 			this_checbox.parents("li").addClass('not_used_bonus');
 			$("#end_money_for_week>span").html((parseInt($("#end_money_for_week>span").html())+parseInt(this_checbox.attr('data-takemoney'))));
+			this_checbox.parents("li").find("li.pay_now").hide();
+			span.html(parseInt(span.html())+parseInt(this_checbox.parents("li").find("li.pay_now>p>span").html()));
 		}else{
 			this_checbox.parents("li").removeClass('not_used_bonus');
 			$("#end_money_for_week>span").html((parseInt($("#end_money_for_week>span").html())-parseInt(this_checbox.attr('data-takemoney'))));
+			this_checbox.parents("li").find("li.pay_now").show();
+			span.html(parseInt(span.html())-parseInt(this_checbox.parents("li").find("li.pay_now>p>span").html()));
 		}
 	});
 });

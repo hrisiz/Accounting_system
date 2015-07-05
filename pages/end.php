@@ -25,8 +25,8 @@
 		foreach($prep->fetchAll(PDO::FETCH_ASSOC) as $person){
 			$balance_money = explode(".",$person['money']);
 			$person['money'] = $balance_money[0];
-			$person_balance = $db_conn->prepare("Update Person Set balance = balance + :balance Where id=:person_id");
-			$person_balance->execute(Array('balance'=>$balance_money[1]/100,'person_id'=>$person['id']));
+				$person_balance = $db_conn->prepare("Update Person Set balance = balance + :balance Where id=:person_id");
+				$person_balance->execute(Array('balance'=>$balance_money[1]/100,'person_id'=>$person['id']));
 			$person['money'] = floor($person['money']);
 			$output ="Име: ".$person['first_name']."\r\nПрезиме: ".$person['second_name']."\r\nФамилия: ".$person['family']."\r\nЕлектронна поша: ".$person['email']."\r\nАдрес: ".$person['address']."\r\nТелефон: ".$person['phone']."\r\nПари на час: ".$person['money_per_hour']."\r\nВреме на работа за седмицата: ".$person['work_time']."\r\nПари за седмицата: ".$person['money']."\r\n\r\nДата,Начало,Край,Пари на час,Работно време,Пари \r\n";
 			$output .= "\r\n";
@@ -50,9 +50,11 @@
 		$del = $db_conn->prepare("Delete from Work Where Work.work_date >= :first AND Work.work_date <= :last");
 		$bonuses = $db_conn->prepare("Update Bonus Set current_money = current_money - money_per_week Where use_now = 1");
 		$del_bonuses = $db_conn->prepare("Delete From Bonus Where current_money <= 0");
+		$rewrite_balance = $db_conn->prepare("Update Person Set balance = balance - :rewrite_balance Where balance >= :rewrite_balance");
 		$del->execute($days);
 		$bonuses->execute();
 		$del_bonuses->execute();
+		$rewrite_balance->execute(Array('rewrite_balance'=>REWRITE_BALANCE));
 		$db_conn->commit();
 		echo "<p class='success'>Седмицата беше успешно завършена.</p>";
 	}
