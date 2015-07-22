@@ -30,3 +30,14 @@ input[name=end_week]{
 .not_used_bonus{
 	color:red;
 }
+
+input#take_this_week{
+	width:2em;
+	padding:0px;
+	background:none;
+	border:none;
+	color:white;
+	display:inline;
+	font-size:1em;
+	text-align:right;
+}

@@ -108,16 +108,46 @@ $(document).ready(function(){
 			}
 		});
 		var span = this_checbox.parents("li").find("li.remaining_money>p>span");
+		var money_for_week = parseInt(this_checbox.parents("li").find("li.pay_now>p>span>input").val())
 		if(!this_checbox.is(':checked')){
 			this_checbox.parents("li").addClass('not_used_bonus');
-			$("#end_money_for_week>span").html((parseInt($("#end_money_for_week>span").html())+parseInt(this_checbox.attr('data-takemoney'))));
+			$("#end_money_for_week>span").html((parseInt($("#end_money_for_week>span").html())+money_for_week));
 			this_checbox.parents("li").find("li.pay_now").hide();
-			span.html(parseInt(span.html())+parseInt(this_checbox.parents("li").find("li.pay_now>p>span").html()));
+			span.html(parseInt(span.html())+money_for_week);
 		}else{
 			this_checbox.parents("li").removeClass('not_used_bonus');
-			$("#end_money_for_week>span").html((parseInt($("#end_money_for_week>span").html())-parseInt(this_checbox.attr('data-takemoney'))));
+			$("#end_money_for_week>span").html((parseInt($("#end_money_for_week>span").html())-money_for_week));
 			this_checbox.parents("li").find("li.pay_now").show();
-			span.html(parseInt(span.html())-parseInt(this_checbox.parents("li").find("li.pay_now>p>span").html()));
+			span.html(parseInt(span.html()) - money_for_week);
 		}
 	});
+	$(document).on('focus','input#take_this_week',function(){
+		var span = $(this).parents("ul").first().find("li.remaining_money>p>span");
+		span.html(parseInt(span.html()) + parseInt($(this).val()));
+	});
+	$(document).on('change','input#take_this_week',function(){
+		if(!$(this).val()){
+			$(this).val(0);
+		}
+		var span = $(this).parents("ul").first().find("li.remaining_money>p>span");
+		span.html(parseInt(span.html()) - parseInt($(this).val()));
+		$.ajax({
+			type:'post',
+			data:{
+				"send_id":$(this).attr('data-id'),
+				"new_val":$(this).val()
+			},
+			url: "ajax.php?page=ChangeBonusForWeek", 
+			success: function(result){
+				//alert(result);
+			},
+			error:function(){
+				alert("Възникна проблем. Моля свържете се с администратора.");
+			},
+			fail:function(){
+				alert("Възникна проблем. Моля свържете се с администратора.");
+			}
+		});
+		
+	})
 });

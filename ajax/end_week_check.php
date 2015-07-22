@@ -85,7 +85,7 @@
 				</li>
 				<li class="pay_now" <?=(($bonus['use_now'] == 0) ? "style=\"display:none\"" : "");?>>
 					<p>Изплатени сега:</p>
-					<p><span><?=$pay_now?></span> лв.</p>
+					<p><span><input data-id="<?=$bonus['id']?>" id="take_this_week" value="<?=$pay_now?>"/></span> лв.</p>
 				</li>
 				<li class="remaining_money">
 					<p>Оставащи пари:</p>

@@ -21,9 +21,6 @@
 		elseif($_POST['Bonus']['money'] < $_POST['Bonus']['money_per_week']):
 			echo "<p class='error'>Взетите пари са повече от тези които трябва да бъдат върнати за седмица.</p>";
 			goto error;
-		elseif(strtotime($_POST['Bonus']['start_date']) < strtotime(date('Y-m-d',time()))):
-			echo "<p class='error'>Датата е преди днешната.</p>";
-			goto error;
 		endif;
 		$prep = $db_conn->prepare("Insert Into Bonus(person_id,type,current_money,money,money_per_week,start_date) Values(:person,:type,:money,:money,:money_per_week,:start_date)");
 		$prep->execute($_POST['Bonus']);
