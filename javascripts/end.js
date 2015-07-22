@@ -125,7 +125,7 @@ $(document).ready(function(){
 		var span = $(this).parents("ul").first().find("li.remaining_money>p>span");
 		span.html(parseInt(span.html()) + parseInt($(this).val()));
 	});
-	$(document).on('change','input#take_this_week',function(){
+	$(document).on('focusout','input#take_this_week',function(){
 		if(!$(this).val()){
 			$(this).val(0);
 		}
