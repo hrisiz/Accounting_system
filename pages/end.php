@@ -60,7 +60,7 @@
 		$bonuses_use->execute(Array('last'=>$days['last']));
 		$del_bonuses->execute();
 		$rewrite_balance->execute(Array('rewrite_balance'=>REWRITE_BALANCE));
-		//$db_conn->commit();
+		$db_conn->commit();
 		echo "<p class='success'>Седмицата беше успешно завършена.</p>";
 	}
 	error:
