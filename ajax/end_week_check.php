@@ -61,7 +61,7 @@
 	</li>
 	<li class="not_for_print">
 		<p>Останали пари от седмиците:</p>
-		<p><?=((($person_info['money'][1]/100) + $person_info['balance']) >= REWRITE_BALANCE ? ((($person_info['money'][1]/100) + $person_info['balance'])-REWRITE_BALANCE):(($person_info['money'][1]/100) + $person_info['balance']))?> лв.</p>
+		<p><?=((($person_info['money'][1]/100) + $person_info['balance']) >= REWRITE_BALANCE ? ((($person_info['money'][1]/100) + $person_info['balance'])-REWRITE_BALANCE):(($person_info['money'][1]/100) + $person_info['balance']))?> лв. <?=((($person_info['money'][1]/100) + $person_info['balance']) >= REWRITE_BALANCE ? "&#x2611;":"")?></p>
 	</li>
 	<?php
 		$take_money = 0;
@@ -85,7 +85,7 @@
 				</li>
 				<li class="pay_now" <?=(($bonus['use_now'] == 0) ? "style=\"display:none\"" : "");?>>
 					<p>Изплатени сега:</p>
-					<p><span><input data-id="<?=$bonus['id']?>" id="take_this_week" value="<?=$pay_now?>"/></span> лв.</p>
+					<p><span><input data-id="<?=$bonus['id']?>" id="take_this_week" value="<?=$pay_now?>"/></span> лв.<button class="not_for_print" id="change_take_this_week">Промени</button></p>
 				</li>
 				<li class="remaining_money">
 					<p>Оставащи пари:</p>
@@ -110,9 +110,7 @@
 <h1 class="not_for_print">Работни дни</h1>
 <table class="not_for_print" id="work_time_info">
 	<tr>
-		<th>Дата</th>
-		<th>Начало</th>
-		<th>Край</th>
+		<th>Дата на работа</th>
 		<th class="not_for_print">Пари на час</th>
 		<th>Време за деня</th>
 		<th>Пари за деня</th>
@@ -122,8 +120,6 @@
 	?>
 		<tr>
 			<td><?=$day['work_date']?></td>
-			<td><?=$day['start_time']?></td>
-			<td><?=$day['end_time']?></td>
 			<td class="not_for_print"><?=$day['money_per_hour']?></td>
 			<td><?=$day['work_time']?></td>
 			<td><?=$day['work_money']?></td>

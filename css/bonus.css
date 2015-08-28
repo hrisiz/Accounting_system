@@ -10,7 +10,25 @@ section> div#show > table > tbody > tr > td{
 	text-align:center;
 	color:black;
 	background-color:lightgrey;
+	padding:0px;
 }
 section> div#show > table > tbody > tr:nth-child(2n) > td{
 	background-color:grey;
+}
+input[type="submit"][name="delete_bonus"]{
+	width:20px;
+	height:20px;
+	padding:0px;
+	margin:2px;
+	margin-left:auto;
+	margin-right:auto;
+	outline:0px;
+	background-color:white;
+	border-radius:0px;
+	font-size:0.9em;
+}
+form{
+	width:100%;
+	padding:0px;
+	margin:0px;
 }

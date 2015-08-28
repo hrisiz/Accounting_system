@@ -76,11 +76,14 @@ $(document).ready(function(){
 		var clone = $("div#end_week_people_info").clone();
 		clone.find('input[type=checkbox].bonus').each(function(){
 			if(!$(this).is(":checked")){
-				$(this).parents("li").addClass("not_for_print");
+				$(this).parents("li").replaceWith("");
 			}else{
-				$(this).addClass("not_for_print");
+				$(this).replaceWith("");
 			}
 		});
+		clone.find('input').each(function(){
+			$(this).replaceWith("<p>"+$(this).val()+"</p>")
+		})
 		clone.find(".not_for_print").replaceWith("");
 		print_elem(clone.html());
 	});
@@ -153,5 +156,16 @@ $(document).ready(function(){
 			}
 		});
 		
+	})
+	var change_click;
+	$(document).on('mousedown','button#change_take_this_week',function(){
+		var input = $(this).parents("p").find("input#take_this_week");
+		change_click = !input.is(":focus");
+	})
+	$(document).on('mouseup','button#change_take_this_week',function(){
+		var input = $(this).parents("p").find("input#take_this_week");
+		if(change_click){
+			$(input).trigger('focus');
+		}
 	})
 });

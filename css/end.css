@@ -1,13 +1,19 @@
 div#end_week_people_info ul#person_info{
 	list-style-type:none;
 	text-align:left;
+	float:left;
+	width:40%;
+}
+table#work_time_info{
+	float:right;
+	width:50%;
 }
 div#end_week_people_info ul#person_info  li{
- margin:10px 0px ;
+	margin:10px 0px ;
 }
 div#end_week_people_info ul#person_info  li  p{
 	display:inline;
-	padding-right:10px;
+	padding-right:5px;
 }
 div#end_week_people_info td{
 	color:white;
@@ -34,10 +40,14 @@ input[name=end_week]{
 input#take_this_week{
 	width:2em;
 	padding:0px;
+	margin:0px;
 	background:none;
 	border:none;
 	color:white;
 	display:inline;
 	font-size:1em;
 	text-align:right;
+}
+button#send_end_week{
+	display:none;
 }
