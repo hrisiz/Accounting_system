@@ -2,7 +2,6 @@
 	<?php
 		$input = "";
 		foreach($_POST['send_ids'] as $key=>$value){
-			echo $value;
 			$input .= "id = :".$key." OR ";
 		}
 		$input = substr($input,0,-3);
