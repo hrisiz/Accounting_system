@@ -48,6 +48,14 @@ input#take_this_week{
 	font-size:1em;
 	text-align:right;
 }
+button#print_all{
+	display:none;
+}
 button#send_end_week{
 	display:none;
+}
+button.main_button{
+	padding:10px;
+	font-size:2em;
+	margin:10px;
 }

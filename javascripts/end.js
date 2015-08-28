@@ -23,7 +23,8 @@ function next_person(person,start_date,end_date){
 		type:'post',
 		data:{
 			"send_id":person,
-			"send_end_date":end_date
+			"send_end_date":end_date,
+			"send_start_date":start_date
 		},
 		url: "ajax.php?page=EndWeekCheck", 
 		success: function(result){
@@ -55,23 +56,31 @@ $(document).ready(function(){
 				$(document).on('click',"#next_person",function(){
 					next += 1;
 					if(next > persons.length-1){
-						next = persons.length-1;
+						next = persons.length;
+						$("div#end_week_people_info").find("button#send_end_week").show();
+						$("div#end_week_people_info").find("button#print_all").show();
+						$("div#end_week_people_info").find("button#print_person").hide();
+						$("div#person_full_info").replaceWith("");
+					}else{
+						next_person(persons[next],$("#start_date").val(),$("#end_date").val());
 					}
-					next_person(persons[next],$("#start_date").val(),$("#end_date").val());
 				});
 				next_person(persons[next],$("#start_date").val(),$("#end_date").val());
 			},
 			error:function(err){
-				alert("Взъникна грешка. Моля рестартираите страницата или опитаите по-късно.");
+				$("div#end_week_people_info").html("");
+				alert("Взъникна грешка. Няма намерени хора за тази дата или има проблем с сървъра.");
 				console.log(err);
 			}
 		});
 	});
+	
 	$(document).on("click","#send_end_week",function(){
 		if(confirm('Сигурни ли сте, че искате да завършите седмицата?')){
 			$("input[name=end_week]").trigger("click");
 		}
 	});
+	
 	$(document).on("click","#print_person",function(){
 		var clone = $("div#end_week_people_info").clone();
 		clone.find('input[type=checkbox].bonus').each(function(){
@@ -86,7 +95,18 @@ $(document).ready(function(){
 		})
 		clone.find(".not_for_print").replaceWith("");
 		print_elem(clone.html());
+	});	
+	
+	$(document).on("click","#print_all",function(){
+		$.ajax({
+			type:'post',
+			url: "ajax.php?page=PrintAll", 
+			success: function(result){
+				print_elem(result);
+			}
+		});
 	});
+	
 	$(document).on('change','input[type=checkbox].bonus',function(){
 		var this_checbox = $(this);
 		var new_val = 1;
