@@ -104,7 +104,7 @@
 			<td><?=$bonus['money']?></td>
 			<td><?=$bonus['money_per_week']?></td>
 			<td><?=$bonus['start_date']?></td>
-			<td><form method="POST"> <input type="hidden" name="id" value="<?=$bonus['id']?>"/><input type="submit" name="delete_bonus" value="X"/></form></td>
+			<td><form method="POST"> <input type="hidden" name="id" value="<?=$bonus['id']?>"/><input onclick="if(!confirm('Сигурни ли сте, че искате да го изтриете?')){return false;};" type="submit" name="delete_bonus" value="X"/></form></td>
 		</tr>
 		<?php
 			}
