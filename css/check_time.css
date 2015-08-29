@@ -16,12 +16,6 @@ section > div#compare > table tr:nth-child(odd)>td{
 	background-color:lightblue;
 }
 
-
-section > div#compare > table tr:nth-child(odd)>td{
-	color:black;
-	background-color:lightblue;
-}
-
 section > div#show_all >table tr>th{
 	color:white;
 }
@@ -31,7 +25,7 @@ section > div#show_all >table tr>td{
 	text-align:center;
 }
 
-section > div#show_all >table tr:nth-child(odd)>td{
+section > div#show_all >table tr:nth-child(even)>td{
 	color:black;
 	background-color:lightblue;
 	
