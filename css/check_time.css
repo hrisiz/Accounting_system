@@ -25,9 +25,16 @@ section > div#compare > table tr:nth-child(odd)>td{
 section > div#show_all >table tr>th{
 	color:white;
 }
+
 section > div#show_all >table tr>td{
 	color:white;
 	text-align:center;
+}
+
+section > div#show_all >table tr:nth-child(odd)>td{
+	color:black;
+	background-color:lightblue;
+	
 }
 section > div#show_all >table tr>td>input{
 	height:auto;
