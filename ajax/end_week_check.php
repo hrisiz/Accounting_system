@@ -124,7 +124,9 @@
 	<table class="not_for_print" id="work_time_info">
 		<tr>
 			<th>Дата на работа</th>
-			<th class="not_for_print">Пари на час</th>
+			<!--<th class="not_for_print">Пари на час</th>-->
+			<th>Начало на работа</th>
+			<th>Край на работа</th>
 			<th>Време за деня</th>
 			<th>Пари за деня</th>
 		</tr>
@@ -133,8 +135,10 @@
 		?>
 			<tr>
 				<td><?=$day['work_date']?></td>
-				<td class="not_for_print"><?=$day['money_per_hour']?></td>
-				<td><?=$day['work_time']?></td>
+				<!--<td class="not_for_print"><?=$day['money_per_hour']?></td>-->
+				<td><?=substr($day['start_time'],0,5)?></td>
+				<td><?=substr($day['end_time'],0,5)?></td>
+				<td><?=substr($day['work_time'],0,5)?></td>
 				<td><?=$day['work_money']?></td>
 			</tr>
 		<?php
