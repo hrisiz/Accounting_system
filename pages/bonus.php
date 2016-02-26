@@ -89,7 +89,7 @@
 			</tr>
 		</thead>
 		<?php
-			$bonuses = $db_conn->query("Select * From Bonus") or die("<p class='error'>Проблем с базата данни. Свържете се с администратора.</p>");
+			$bonuses = $db_conn->query("Select * From Bonus order by person_id,start_date") or die("<p class='error'>Проблем с базата данни. Свържете се с администратора.</p>");
 			$bonuses = $bonuses->fetchAll(PDO::FETCH_ASSOC);
 			foreach($bonuses as $bonus){
 				$person = $db_conn->query("Select * From Person Where id=".$bonus['person_id']) or die("<p class='error'>Проблем с базата данни. Свържете се с администратора.</p>");;

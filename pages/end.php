@@ -23,13 +23,19 @@
 		$prep = $db_conn->prepare($select_persons_query);
 		$prep->execute($days);
 		foreach($prep->fetchAll(PDO::FETCH_ASSOC) as $person){
-			$used_bonuses = $db_conn->prepare("Select SUM(money_per_week) as money_for_week From Bonus Where person_id = :person_id AND use_now = 1");
-			$used_bonuses->execute(Array('person_id'=>$person['id']));
+			$used_bonuses = $db_conn->prepare("Select SUM(money_per_week) as money_for_week From Bonus Where person_id = :person_id AND use_now = 1 AND start_date <= :last");
+			$used_bonuses->execute(Array('person_id'=>$person['id'],'last'=>$days['last']));
 			$used_bonuses = $used_bonuses->fetch(PDO::FETCH_ASSOC);
 			$balance_money = explode(".",$person['money']);
 			$person['money'] = $balance_money[0];
-			$person_balance = $db_conn->prepare("Update Person Set balance = balance + :balance Where id=:person_id");
-			$person_balance->execute(Array('balance'=>$balance_money[1]/100,'person_id'=>$person['id']));
+			if(($person['money'] - $used_bonuses['money_for_week']) < 0){
+				echo "<p class='error'>".$person['first_name']." ".$person['family']." е с отрицателни пари!</p>";
+				continue;
+			}
+			if(0){
+				$person_balance = $db_conn->prepare("Update Person Set balance = balance + :balance Where id=:person_id");
+				$person_balance->execute(Array('balance'=>isset($balance_money[1]) ? $balance_money[1]/100:0,'person_id'=>$person['id']));
+			}
 			$person['money'] = floor($person['money']);
 			$output ="Име: ".$person['first_name']."\r\nПрезиме: ".$person['second_name']."\r\nФамилия: ".$person['family']."\r\nЕлектронна поша: ".$person['email']."\r\nАдрес: ".$person['address']."\r\nТелефон: ".$person['phone']."\r\nПари на час: ".$person['money_per_hour']."\r\nВреме на работа за седмицата: ".$person['work_time']."\r\nПари за седмицата: ".$person['money']."\r\nПари удържани от заем/аванс:".$used_bonuses['money_for_week']."\r\n\r\n\r\nДата,Начало,Край,Пари на час,Работно време,Пари \r\n";
 			$output .= "\r\n";
@@ -49,15 +55,16 @@
 				$output .= "\r\n";
 			}
 			file_put_contents("history/".iconv("UTF-8", "Windows-1251",$person['first_name'])."-".$days['first']."=-=".$days['last'].".log",$output); 
+			$del = $db_conn->prepare("Delete from Work Where Work.work_date >= :first AND Work.work_date <= :last AND person_id = :person_id");
+			$bonuses = $db_conn->prepare("Update Bonus Set current_money = current_money - money_per_week Where use_now = 1 AND start_date <= :last AND person_id = :person_id");
+			$del->execute(Array('first' => $days['first'],'last'=>$days['last'],'person_id'=>$person['id']));
+			$bonuses->execute(Array('last'=>$days['last'],'person_id'=>$person['id']));
 		}
-		$del = $db_conn->prepare("Delete from Work Where Work.work_date >= :first AND Work.work_date <= :last");
-		$bonuses = $db_conn->prepare("Update Bonus Set current_money = current_money - money_per_week Where use_now = 1");
-		$bonuses_use = $db_conn->prepare("Update Bonus Set use_now = 1 Where start_date > :last");
+		
+		//$bonuses_use = $db_conn->prepare("Update Bonus Set use_now = 1 Where start_date > :last");
 		$del_bonuses = $db_conn->prepare("Delete From Bonus Where current_money <= 0");
 		$rewrite_balance = $db_conn->prepare("Update Person Set balance = balance - :rewrite_balance Where balance >= :rewrite_balance");
-		$del->execute($days);
-		$bonuses->execute();
-		$bonuses_use->execute(Array('last'=>$days['last']));
+		//$bonuses_use->execute(Array('last'=>$days['last']));
 		$del_bonuses->execute();
 		$rewrite_balance->execute(Array('rewrite_balance'=>REWRITE_BALANCE));
 		$db_conn->commit();

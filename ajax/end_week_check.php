@@ -29,15 +29,15 @@
 	$person_info = $person_info[0];
 	$person_info['money'] = explode(".",$person_info['money']);
 ?>
-<div id="options">
+<div class="not_for_print" id="options">
 	<button id="previous_person">Предишен</button>
 	<button id="print_person">Принтиране</button>
 	<button id="next_person">Следжащ</button>
 </div>
-<div>
+<div class="not_for_print">
 	<button class="main_button" id="send_end_week">Завършване</button>
 </div>
-<div>
+<div class="not_for_print">
 	<button class="main_button" id="print_all">Принтиране на всички</button>
 </div>
 <?php
@@ -121,7 +121,7 @@
 		$person_work_info = $prep->fetchAll(PDO::FETCH_ASSOC);
 	?>
 	<h1 class="not_for_print">Работни дни</h1>
-	<table class="not_for_print" id="work_time_info">
+	<table id="work_time_info">
 		<tr>
 			<th>Дата на работа</th>
 			<!--<th class="not_for_print">Пари на час</th>-->
