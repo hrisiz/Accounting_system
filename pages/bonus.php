@@ -1,4 +1,5 @@
 ﻿<?php 
+	define("BONUS_LOG_FILE","history/bonuses.log");
 	if(isset($_POST['add_bonus'])){
 		if(!isset($_POST['Bonus']['person'])):
 			echo "<p class='error'>Не е въведен човек.</p>";
@@ -24,6 +25,20 @@
 		endif;
 		$prep = $db_conn->prepare("Insert Into Bonus(person_id,type,current_money,money,money_per_week,start_date) Values(:person,:type,:money,:money,:money_per_week,:start_date)");
 		$prep->execute($_POST['Bonus']);
+		$the_id = $db_conn->lastInsertId();
+		$bonus_log = fopen(BONUS_LOG_FILE,"a");
+		$prep1 = $db_conn->prepare("Select bonus_type.name as bonus_type,person.first_name,person.second_name,person.family From bonus_type,person Where bonus_type.id=:type && person.id = :person_id");
+		$prep1->execute(Array('type'=>$_POST['Bonus']['type'],'person_id'=>$_POST['Bonus']['person']));
+		$result = $prep1->fetch(PDO::FETCH_ASSOC);
+		$string = sprintf("\n%-5d\t%s\t%s\t%-5.2d\t%s",
+					$the_id,
+					implode(' ',Array($result['first_name'],
+									  $result['second_name'],
+									  $result['family'])),
+					$result['bonus_type'],
+					$_POST['Bonus']['money'],
+					$_POST['Bonus']['start_date']);
+		fwrite($bonus_log,$string);
 		echo "<p class='success'>Успешно записано.</p>";
 	}
 	if(isset($_POST['delete_bonus'])){
@@ -39,6 +54,15 @@
 		endif;
 		$prep = $db_conn->prepare("Delete From Bonus Where id=:id");
 		$prep->execute(Array('id'=>$_POST['id']));
+		$file_content = file_get_contents(BONUS_LOG_FILE);
+		$file_content = explode("\n",$file_content);
+		foreach($file_content as $key=>$value){
+			$row_content = explode("\t",$value);
+			if(intval($row_content[0]) == intval($_POST['id'])){
+				unset($file_content[$key]);
+			}
+		}
+		file_put_contents(BONUS_LOG_FILE,implode("\n",$file_content));
 	}
 	error:
 ?>

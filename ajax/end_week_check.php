@@ -82,6 +82,8 @@
 				$pay_now = $bonus['money_per_week'];
 				if($bonus['money_per_week'] > $bonus['current_money']){
 					$pay_now = $bonus['current_money'];
+					$change = $db_conn->prepare("Update Bonus Set money_per_week = current_money where id = :bonus_id");
+					$change->execute(Array('bonus_id' => $bonus['id']));
 				}
 				if($bonus['use_now'] != 0){
 					$take_money += $pay_now;

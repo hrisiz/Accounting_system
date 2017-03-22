@@ -7,7 +7,7 @@
 		<label for="person">Човек:</label>
 		<div id="persons">
 				<?php 
-					$prep = $db_conn->prepare("Select Person.* From Person Left Join Work On Work.person_id = Person.id AND Work.work_date = :date Where Work.work_date is null");
+					$prep = $db_conn->prepare("Select Person.* From Person Left Join Work On Work.person_id = Person.id AND Work.work_date = :date Where Work.work_date is null order by first_name");
 					$input = Array('date'=>$date);
 					$prep->execute($input);
 					$persons_info = $prep->fetchAll(PDO::FETCH_ASSOC);

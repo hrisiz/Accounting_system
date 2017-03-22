@@ -73,7 +73,7 @@
 					<?=time_pick_values(24,(isset($_POST['start_time']['hour']) ? $_POST['start_time']['hour']:8));?>
 				</select>
 				<select name="start_time[minute]">
-					<?=time_pick_values(59,(isset($_POST['start_time']['hour']) ? $_POST['start_time']['hour']:0),5);?>
+					<?=time_pick_values(59,(isset($_POST['start_time']['minutes']) ? $_POST['start_time']['minutes']:0),5);?>
 				</select>
 			</div>
 			<div id="end_time" >

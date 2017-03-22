@@ -29,10 +29,10 @@
 			$balance_money = explode(".",$person['money']);
 			$person['money'] = $balance_money[0];
 			if(($person['money'] - $used_bonuses['money_for_week']) < 0){
-				echo "<p class='error'>".$person['first_name']." ".$person['family']." е с отрицателни пари!</p>";
+				echo "<p class='error'>".$person['first_name']." ".$person['family']." е с отрицателни пари!".($person['money'] - $used_bonuses['money_for_week'])."</p>";
 				continue;
 			}
-			if(0){
+			if(1){
 				$person_balance = $db_conn->prepare("Update Person Set balance = balance + :balance Where id=:person_id");
 				$person_balance->execute(Array('balance'=>isset($balance_money[1]) ? $balance_money[1]/100:0,'person_id'=>$person['id']));
 			}

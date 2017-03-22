@@ -32,7 +32,7 @@ Create Table if not exists Bonus_type(
 	id int primary key auto_increment,
 	name varchar(50)
 ) ENGINE InnoDB Default charset=utf8;
-Insert Into Bonus_type(name) Values('Аванс'),('Заем');
+#Insert Into Bonus_type(name) Values('Аванс'),('Заем');
 
 use work;
 Create Table if not exists Bonus(
